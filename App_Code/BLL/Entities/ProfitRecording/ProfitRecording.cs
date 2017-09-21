@@ -394,9 +394,6 @@ namespace CryptoTrader.BLL
             decimal profitperc = 0;
 
 
-            spread = 0.4m;
-            feeperc = 4;
-            amount = 2000;
 
             fee = amount * (feeperc / 100);
             zarprice = (exchangerate + spread);
