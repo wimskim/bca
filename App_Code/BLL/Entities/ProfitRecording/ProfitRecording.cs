@@ -375,7 +375,7 @@ namespace CryptoTrader.BLL
 
         }
 
-        private static decimal GetProfit(decimal btcprice, decimal lunobidprice, decimal exchangerate, decimal spread, decimal feeperc, decimal amount)
+        private static decimal GetProfit(decimal exchangeAskPrice, decimal lunoBidPrice, decimal exchangerate, decimal spread, decimal feeperc, decimal amount)
         {
 
 
@@ -399,12 +399,12 @@ namespace CryptoTrader.BLL
             zarprice = (exchangerate + spread);
             zarfromcc = zarprice * amount;
             amount = amount - fee;
-            btcweget = amount / btcprice;
+            btcweget = amount / exchangeAskPrice;
             tradingfees = (btcweget * (takerfeeperc / 100)); // taker fees
             tradingfees += btctransferfee; // transfer fees
             btcweget = btcweget - tradingfees;
 
-            zararrinving = btcweget * lunobidprice;
+            zararrinving = btcweget * lunoBidPrice;
             profit = zararrinving - zarfromcc;
             profitperc = (profit / zarfromcc) * 100;
 
