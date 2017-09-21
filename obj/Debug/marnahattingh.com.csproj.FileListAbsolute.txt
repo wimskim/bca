@@ -1,0 +1,7 @@
+C:\DATA\Apps\marnahattingh.com\bin\marnahattingh.com.dll
+C:\DATA\Apps\marnahattingh.com\bin\marnahattingh.com.pdb
+C:\DATA\Apps\marnahattingh.com\obj\Debug\marnahattingh.com.dll
+C:\DATA\Apps\marnahattingh.com\obj\Debug\marnahattingh.com.pdb
+C:\Users\wimsk\OneDrive\marnahattingh.com\Website\marnahattingh.com\obj\Debug\marnahattingh.com.csprojResolveAssemblyReference.cache
+C:\Users\wimsk\OneDrive\marnahattingh.com\Website\marnahattingh.com\obj\Debug\marnahattingh.com.dll
+C:\Users\wimsk\OneDrive\marnahattingh.com\Website\marnahattingh.com\obj\Debug\marnahattingh.com.pdb

@@ -1,0 +1,10 @@
+C:\DATA\Apps\CryptoTrades\obj\Debug\CryptoTrader.csprojResolveAssemblyReference.cache
+C:\DATA\Apps\CryptoTrades\bin\CryptoTrader.dll.config
+C:\DATA\Apps\CryptoTrades\bin\CryptoTrader.dll
+C:\DATA\Apps\CryptoTrades\bin\CryptoTrader.pdb
+C:\DATA\Apps\CryptoTrades\bin\Newtonsoft.Json.dll
+C:\DATA\Apps\CryptoTrades\bin\RestSharp.dll
+C:\DATA\Apps\CryptoTrades\bin\Newtonsoft.Json.xml
+C:\DATA\Apps\CryptoTrades\bin\RestSharp.xml
+C:\DATA\Apps\CryptoTrades\obj\Debug\CryptoTrader.dll
+C:\DATA\Apps\CryptoTrades\obj\Debug\CryptoTrader.pdb
