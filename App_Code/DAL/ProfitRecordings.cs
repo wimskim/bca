@@ -21,20 +21,24 @@ namespace CryptoTrader.DAL
             return ExecuteDataSet("CryptoTrades", "SELECT * FROM ProfitRecordings WITH (NOLOCK) WHERE Id = @Id", CommandType.Text,
                 CreateParameter("@Id",SqlDbType.Int,id));
         }
-        public DataSet GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,long periods)
+        public DataSet GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,DateTime dtfrom, DateTime dtTo)
         {
-            return ExecuteDataSet(@"CryptoTrades", "SELECT top " + periods.ToString() + " * FROM ProfitRecordings WITH (NOLOCK) WHERE (exchange = '" + exchange.ToString() + "' or exchange = '" + ((int)exchange).ToString() + @"')
-                                                            AND (Currency = '" + currency.ToString() + "' or Currency = '" + ((int)currency).ToString() + @"') 
-                                                            order by TimeStamp desc", CommandType.Text);
+            return ExecuteDataSet(@"CryptoTrades", "SELECT * FROM ProfitRecordings WITH (NOLOCK) WHERE (exchange = '" + exchange.ToString() + "' or exchange = '" + ((int)exchange).ToString() + @"')
+                                                            AND (Currency = '" + currency.ToString() + "' or Currency = '" + ((int)currency).ToString() + @"')
+                                                            AND TimeStamp Between @dtFrom AND @dtTo 
+                                                            order by TimeStamp desc", CommandType.Text, 
+                                                            CreateParameter("@dtFrom", SqlDbType.DateTime, dtfrom, ParameterDirection.InputOutput),
+                                                            CreateParameter("@dtTo", SqlDbType.DateTime, dtTo, ParameterDirection.InputOutput)
+                                    );
         }
-        //public DataSet GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency)
-        //{
-        //    return ExecuteDataSet(@"CryptoTrades", "SELECT top 1 * FROM ProfitRecordings WITH (NOLOCK) WHERE (exchange = '" + exchange.ToString() + "' or exchange = '" + ((int)exchange).ToString() + @"')
-        //                                                    AND ( Currency = '" + currency.ToString() + "' or Currency = '" + ((int)currency).ToString() + @"') 
-        //                                    order by TimeStamp desc", CommandType.Text);
-        //}
+        public DataSet GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency)
+        {
+            return ExecuteDataSet(@"CryptoTrades", "SELECT top 1 * FROM ProfitRecordings WITH (NOLOCK) WHERE (exchange = '" + exchange.ToString() + "' or exchange = '" + ((int)exchange).ToString() + @"')
+                                                            AND ( Currency = '" + currency.ToString() + "' or Currency = '" + ((int)currency).ToString() + @"') 
+                                            order by TimeStamp desc", CommandType.Text);
+        }
 
-        
+
         public void Save(ref long id,
                                 BLL.ProfitRecording.enExchange exchange,
                                 BLL.ProfitRecording.enCurrency currency,

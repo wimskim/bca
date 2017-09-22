@@ -8,6 +8,7 @@ var myMovingAverage = function(arr, win) {
 }
 
 var ctx_count_percent = document.getElementById('chart_prof_percent').getContext('2d');
+var ctx_all_to_zar = document.getElementById('chart_all_to_zar').getContext('2d');
 
 
 // global settings:
@@ -21,22 +22,39 @@ var chart_prof_percent = new Chart(ctx_count_percent, {
         scales: {
             yAxes: [{
                 ticks: {
-                    callback: function(value, index, values) { return value.toPrecision(2) + '%'; }
+                    callback: function(value, index, values) { return value.toPrecision(2) + ' %'; }
                 }
             }]
         },
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) { return tooltipItem.yLabel.toFixed(2) + '%'; }
+                label: function(tooltipItem, data) { return tooltipItem.yLabel.toFixed(2) + ' %'; }
             }
         }
     }
 });
 
-var drawCharts = function(periods) {
+var chart_all_to_zar = new Chart(ctx_all_to_zar, {
+    type: 'line',
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    callback: function (value, index, values) { return value.toFixed(0) + ' ZAR'; }
+                }
+            }]
+        },
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) { return tooltipItem.yLabel.toFixed(0) + ' ZAR'; }
+            }
+        }
+    }
+});
 
-    //fetch('http://enyo.gk2.sk:8080/data.json').then(function(response) {
-    fetch('/json.aspx?getjson=getprofits&periods=' + periods).then(function (response) {
+var drawCharts = function(days) {
+
+    fetch('/json.aspx?getjson=getprofits&days=' + days).then(function (response) {
         return response.json();
     }).then(function(blockData) {
         blockData.BitlishUSD = blockData.BitlishUSD.sort(function (a, b) { return a.id - b.id; });
@@ -45,10 +63,11 @@ var drawCharts = function(periods) {
         blockData.CEXEUR = blockData.CEXEUR.sort(function (a, b) { return a.id - b.id; });
         blockData.CEXGBP = blockData.CEXGBP.sort(function (a, b) { return a.id - b.id; });
 
+        var periods = blockData.BitlishUSD.length;
 
-        if (periods > blockData.BitlishUSD.length) {
-            periods = 0;
-        }
+        //if (periods > blockData.BitlishUSD.length) {
+        //    periods = 0;
+        //}
 
 
 
@@ -109,11 +128,84 @@ var drawCharts = function(periods) {
             ]
         };
 
-       
         chart_prof_percent.data = data_count_percent;
-       
-
         chart_prof_percent.update();
        
+        var count_luno_zar = blockData.BitlishUSD.map(function (item) { return item.bid; });
+        var count_bitlish_usd_to_zar = blockData.BitlishUSD.map(function (item) { return (item.ask * item.rate); });
+        var count_bitlish_eur_to_zar = blockData.BitlishEUR.map(function (item) { return (item.ask * item.rate); });
+        var count_cex_usd_to_zar = blockData.CEXUSD.map(function (item) { return (item.ask * item.rate); });
+        var count_cex_eur_to_zar = blockData.CEXEUR.map(function (item) { return (item.ask * item.rate); });
+        var count_cex_gbp_to_zar = blockData.CEXGBP.map(function (item) { return (item.ask * item.rate); });
+
+        var data_luno_zar = {
+            labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),
+            datasets: [{
+                label: 'Luno ZAR',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_luno_zar,
+                backgroundColor: 'rgba(244, 66, 232, 0.1)',
+                borderColor: 'rgba(244, 66, 232, 1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'Bitlish USD',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_bitlish_usd_to_zar,
+                backgroundColor: 'rgba(71, 65, 244, 0.1)',
+                borderColor: 'rgba(71, 65, 244, 1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'Bitlish EUR',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_bitlish_eur_to_zar,
+                backgroundColor: 'rgba(32, 158, 28, 0.1)',
+                borderColor: 'rgba(32, 158, 28, 1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'CEX USD',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_cex_usd_to_zar,
+                backgroundColor: 'rgba(244, 109, 65, 0.1)',
+                borderColor: 'rgba(244, 109, 65, 1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'CEX EUR',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_cex_eur_to_zar,
+                backgroundColor: 'rgba(244, 169, 65, 0.1)',
+                borderColor: 'rgba(244, 169, 65, 1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'CEX GBP',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_cex_gbp_to_zar,
+                backgroundColor: 'rgba(241, 244, 65, 0.1)',
+                borderColor: 'rgba(241, 244, 65, 1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            }
+
+
+            ]
+        };
+        chart_all_to_zar.data = data_luno_zar;
+        chart_all_to_zar.update();
+
     });
 }

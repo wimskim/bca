@@ -6,10 +6,10 @@ namespace CryptoTrader.BLL
     public class ProfitRecordingCollection : BLLBaseCollection<ProfitRecording>
     {
 
-        public static ProfitRecordingCollection GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,long periods)
+        public static ProfitRecordingCollection GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,DateTime dtfrom,DateTime dtTo)
         {
             ProfitRecordingCollection obj = new ProfitRecordingCollection();
-            DataSet ds = new DAL.ProfitRecordings().GetByExchangeAndCurrecy(exchange, currency, periods);
+            DataSet ds = new DAL.ProfitRecordings().GetByExchangeAndCurrecy(exchange, currency, dtfrom,dtTo);
             obj.MapObjects(ds);
             return obj;
         }

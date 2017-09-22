@@ -178,7 +178,7 @@ namespace CryptoTrader.BLL
         {
 
             ProfitRecording obj = new ProfitRecording();
-            DataSet ds = new DAL.ProfitRecordings().GetByExchangeAndCurrecy(exchange,currency,1);
+            DataSet ds = new DAL.ProfitRecordings().GetLatestByExchangeAndCurrnecy(exchange,currency);
 
             if (obj.MapData(ds) == false)
                 obj = null;
