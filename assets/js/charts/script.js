@@ -132,11 +132,41 @@ var drawCharts = function(days) {
         chart_prof_percent.update();
        
         var count_luno_zar = blockData.BitlishUSD.map(function (item) { return item.bid; });
-        var count_bitlish_usd_to_zar = blockData.BitlishUSD.map(function (item) { return (item.ask * item.rate); });
-        var count_bitlish_eur_to_zar = blockData.BitlishEUR.map(function (item) { return (item.ask * item.rate); });
-        var count_cex_usd_to_zar = blockData.CEXUSD.map(function (item) { return (item.ask * item.rate); });
-        var count_cex_eur_to_zar = blockData.CEXEUR.map(function (item) { return (item.ask * item.rate); });
-        var count_cex_gbp_to_zar = blockData.CEXGBP.map(function (item) { return (item.ask * item.rate); });
+        var count_bitlish_usd_to_zar = blockData.BitlishUSD.map(function (item) {
+            var price = (item.ask * (item.rate + 0.4));
+            var fees = 4 + 0.2;
+            price = price + (price * (fees / 100));
+            price = price + (0.001 * item.ask); // transfer fee
+            return price;
+        });
+        var count_bitlish_eur_to_zar = blockData.BitlishEUR.map(function (item) {
+            var price = (item.ask * (item.rate + 0.4));
+            var fees = 4 + 0.2;
+            price = price + (price * (fees / 100));
+            price = price + (0.001 * item.ask); // transfer fee
+            return price;
+        });
+        var count_cex_usd_to_zar = blockData.CEXUSD.map(function (item) {
+            var price = (item.ask * (item.rate + 0.4));
+            var fees = 3.5 + 0.2;
+            price = price + (price * (fees / 100));
+            price = price + (0.001 * item.ask); // transfer fee
+            return price;
+        });
+        var count_cex_eur_to_zar = blockData.CEXEUR.map(function (item) {
+            var price = (item.ask * (item.rate + 0.4));
+            var fees = 3.5 + 0.2;
+            price = price + (price * (fees / 100));
+            price = price + (0.001 * item.ask); // transfer fee
+            return price;
+        });
+        var count_cex_gbp_to_zar = blockData.CEXGBP.map(function (item) {
+            var price = (item.ask * (item.rate + 0.4));
+            var fees = 3.5 + 0.2;
+            price = price + (price * (fees / 100));
+            price = price + (0.001 * item.ask); // transfer fee
+            return price;
+        });
 
         var data_luno_zar = {
             labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),

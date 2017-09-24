@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="chart">
-                 <h5>All Exchanges converted to ZAR</h5>
+                 <h5>All Exchanges converted to ZAR plus fees</h5>
                 <canvas id="chart_all_to_zar"></canvas>
             </div>
         </div>
