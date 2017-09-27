@@ -54,7 +54,7 @@ var chart_all_to_zar = new Chart(ctx_all_to_zar, {
 
 var drawCharts = function(days) {
 
-    fetch('/json.aspx?getjson=getprofits&days=' + days).then(function (response) {
+    fetch('json.aspx?getjson=getprofits&days=' + days).then(function (response) {
         return response.json();
     }).then(function(blockData) {
         blockData.BitlishUSD = blockData.BitlishUSD.sort(function (a, b) { return a.id - b.id; });
