@@ -6,10 +6,10 @@
     <title>Crypto Trades</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <!-- Custom styles for this template -->
 
-    <link href="/assets/css/custom.css?v=1" rel="stylesheet">
+    <link href="assets/css/custom.css?v=1" rel="stylesheet">
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
