@@ -50,6 +50,15 @@
     <script src="assets/js/charts/script.js?ver=3" type="text/javascript"></script>
     <script type="text/javascript">
         drawCharts(1);
+
+
+        // reload the page every 5 minutes
+        setTimeout(RefreshPage, (1000 * 60 * 5) )
+        function RefreshPage()
+        {
+            location.reload();
+        }
+
     </script>
 
 </asp:Content>
