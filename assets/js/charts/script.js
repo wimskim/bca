@@ -239,3 +239,12 @@ var drawCharts = function(days) {
 
     });
 }
+
+drawCharts(1);
+
+
+// reload the page every 5 minutes
+setTimeout(RefreshPage, (1000 * 60 * 1))
+function RefreshPage() {
+    location.reload();
+}
