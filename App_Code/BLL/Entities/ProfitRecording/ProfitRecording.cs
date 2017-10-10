@@ -225,7 +225,9 @@ namespace CryptoTrader.BLL
             {
                 GenerateProfitRecordings();
             }
-            catch { }
+            catch (Exception ex)
+
+            { }
 
             // sleep thread 
             Thread.Sleep(GetIntervalInMilliseconds(1));
@@ -294,32 +296,41 @@ namespace CryptoTrader.BLL
 
 
             // Bitlish USD;
-            decimal profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4, 2000);
+            decimal profPerc = 0;
+            try
+            {
+                profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4, 2000);
 
-            pf = new ProfitRecording();
-            pf.Exchange = enExchange.Bitlish;
-            pf.Currency = enCurrency.USD;
-            pf.LunoBid = luno.bid.price;
-            pf.ExchangeAsk = bitlishUSD.ask.price;
-            pf.CurrencyToZARExchangeRate = usdzar;
-            pf.ProfitPerc = profPerc;
-            pf.Save();
-            
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Bitlish;
+                pf.Currency = enCurrency.USD;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = bitlishUSD.ask.price;
+                pf.CurrencyToZARExchangeRate = usdzar;
+                pf.ProfitPerc = profPerc;
+                pf.Save();
+            }
+            catch { }
+
+
 
             //strColor = (profPerc < 0 ? "red" : "green");
             //lblProfits.InnerHtml += "Bitlish USD <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
 
             // Bitlish EUR;
-            profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4, 1500);
-            pf = new ProfitRecording();
-            pf.Exchange = enExchange.Bitlish;
-            pf.Currency = enCurrency.EUR;
-            pf.LunoBid = luno.bid.price;
-            pf.ExchangeAsk = bitlishEUR.ask.price;
-            pf.CurrencyToZARExchangeRate = eurzar;
-            pf.ProfitPerc = profPerc;
-            pf.Save();
-
+            try
+            {
+                profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4, 1500);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Bitlish;
+                pf.Currency = enCurrency.EUR;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = bitlishEUR.ask.price;
+                pf.CurrencyToZARExchangeRate = eurzar;
+                pf.ProfitPerc = profPerc;
+                pf.Save();
+            }
+            catch { }
             //strColor = (profPerc < 0 ? "red" : "green");
             //lblProfits.InnerHtml += "Bitlish EUR <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
 
@@ -331,40 +342,51 @@ namespace CryptoTrader.BLL
             //lblProfits.InnerHtml += "<br>";
 
             // CEX USD;
-            profPerc = GetProfit(cexUSD.ask.price, luno.bid.price, usdzar, 0.4M, 3.5M, 3000);
-            pf = new ProfitRecording();
-            pf.Exchange = enExchange.Cex;
-            pf.Currency = enCurrency.USD;
-            pf.LunoBid = luno.bid.price;
-            pf.ExchangeAsk = cexUSD.ask.price;
-            pf.CurrencyToZARExchangeRate = usdzar;
-            pf.ProfitPerc = profPerc;
-            pf.Save();
-
+            try
+            {
+                profPerc = GetProfit(cexUSD.ask.price, luno.bid.price, usdzar, 0.4M, 3.5M, 3000);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Cex;
+                pf.Currency = enCurrency.USD;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = cexUSD.ask.price;
+                pf.CurrencyToZARExchangeRate = usdzar;
+                pf.ProfitPerc = profPerc;
+                pf.Save();
+            }
+            catch { }
             //lblProfits.InnerHtml += "CEX USD <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
 
             // CEX EUR;
-            profPerc = GetProfit(cexEUR.ask.price, luno.bid.price, eurzar, 0.4M, 3.5M, 3000);
-            pf = new ProfitRecording();
-            pf.Exchange = enExchange.Cex;
-            pf.Currency = enCurrency.EUR;
-            pf.LunoBid = luno.bid.price;
-            pf.ExchangeAsk = cexEUR.ask.price;
-            pf.CurrencyToZARExchangeRate = eurzar;
-            pf.ProfitPerc = profPerc;
-            pf.Save();
+            try
+            {
+                profPerc = GetProfit(cexEUR.ask.price, luno.bid.price, eurzar, 0.4M, 3.5M, 3000);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Cex;
+                pf.Currency = enCurrency.EUR;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = cexEUR.ask.price;
+                pf.CurrencyToZARExchangeRate = eurzar;
+                pf.ProfitPerc = profPerc;
+                pf.Save();
+            }
+            catch { }
             //lblProfits.InnerHtml += "CEX EUR <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
 
             // CEX GBP;
-            profPerc = GetProfit(cexGBP.ask.price, luno.bid.price, gbpzar, 0.4M, 3.5M, 2000);
-            pf = new ProfitRecording();
-            pf.Exchange = enExchange.Cex;
-            pf.Currency = enCurrency.GBP;
-            pf.LunoBid = luno.bid.price;
-            pf.ExchangeAsk = cexGBP.ask.price;
-            pf.CurrencyToZARExchangeRate = gbpzar;
-            pf.ProfitPerc = profPerc;
-            pf.Save();
+            try
+            {
+                profPerc = GetProfit(cexGBP.ask.price, luno.bid.price, gbpzar, 0.4M, 3.5M, 2000);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Cex;
+                pf.Currency = enCurrency.GBP;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = cexGBP.ask.price;
+                pf.CurrencyToZARExchangeRate = gbpzar;
+                pf.ProfitPerc = profPerc;
+                pf.Save();
+            }
+            catch { }
             //lblProfits.InnerHtml += "CEX GBP <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
 
             //// CEX RUB;
