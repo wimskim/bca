@@ -43,11 +43,21 @@
         </div>
     </div>
 
+     <div class="row">
+        <div class="col-xs-12">
+            <div class="chart">
+                 <h5>Exchange Rates</h5>
+                <canvas id="chart_all_exchangerates"></canvas>
+            </div>
+        </div>
+    </div>
+
+
 
     <script src="assets/js/charts/Chart.min.js" type="text/javascript"></script>
     <script src="assets/js/charts/average.js" type="text/javascript"></script>
     <script src="assets/js/charts/median.js" type="text/javascript"></script>
-    <script src="assets/js/charts/script.js?ver=4" type="text/javascript"></script>
+    <script src="assets/js/charts/script.js?ver=5" type="text/javascript"></script>
     <script type="text/javascript">
        
 

@@ -9,6 +9,8 @@ var myMovingAverage = function(arr, win) {
 
 var ctx_count_percent = document.getElementById('chart_prof_percent').getContext('2d');
 var ctx_all_to_zar = document.getElementById('chart_all_to_zar').getContext('2d');
+var ctx_all_exchangerates = document.getElementById('chart_all_exchangerates').getContext('2d');
+
 
 
 // global settings:
@@ -52,6 +54,24 @@ var chart_all_to_zar = new Chart(ctx_all_to_zar, {
     }
 });
 
+var chart_all_exchangerates = new Chart(ctx_all_exchangerates, {
+    type: 'line',
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    callback: function (value, index, values) { return value.toFixed(0.00) + ' ZAR'; }
+                }
+            }]
+        },
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) { return tooltipItem.yLabel.toFixed(0.00) + ' ZAR'; }
+            }
+        }
+    }
+});
+
 var drawCharts = function(days) {
 
     fetch('json.aspx?getjson=getprofits&days=' + days).then(function (response) {
@@ -62,6 +82,8 @@ var drawCharts = function(days) {
         blockData.CEXUSD = blockData.CEXUSD.sort(function (a, b) { return a.id - b.id; });
         blockData.CEXEUR = blockData.CEXEUR.sort(function (a, b) { return a.id - b.id; });
         blockData.CEXGBP = blockData.CEXGBP.sort(function (a, b) { return a.id - b.id; });
+
+
 
         var periods = blockData.BitlishUSD.length;
 
@@ -237,6 +259,45 @@ var drawCharts = function(days) {
         chart_all_to_zar.data = data_luno_zar;
         chart_all_to_zar.update();
 
+        var count_usdzar = blockData.BitlishUSD.map(function (item) { return item.rate; });
+        var count_eurzar = blockData.BitlishEUR.map(function (item) { return item.rate; });
+        var count_gbpzar = blockData.CEXGBP.map(function (item) { return item.rate; });
+        var data_exchangerates = {
+            labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),
+            datasets: [{
+                label: 'USD',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_usdzar,
+                backgroundColor: 'rgba(71, 65, 244, 0.1)',
+                borderColor: 'rgba(71, 65, 244, 0.1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'EUR',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_eurzar,
+                backgroundColor: 'rgba(32, 158, 28, 0.1)',
+                borderColor: 'rgba(32, 158, 28, 0.1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            {
+                label: 'GBP',
+                //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+                data: count_gbpzar,
+                backgroundColor: 'rgba(241, 244, 65, 0.1)',
+                borderColor: 'rgba(241, 244, 65, 0.1)',
+                borderWidth: 1,
+                pointRadius: 0
+
+            },
+            ]
+        };
+        chart_all_exchangerates.data = data_exchangerates;
+        chart_all_exchangerates.update();
     });
 }
 
