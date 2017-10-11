@@ -60,13 +60,13 @@ var chart_all_exchangerates = new Chart(ctx_all_exchangerates, {
         scales: {
             yAxes: [{
                 ticks: {
-                    callback: function (value, index, values) { return value.toFixed(0.00) + ' ZAR'; }
+                    callback: function (value, index, values) { return value.toFixed(2) + ' ZAR'; }
                 }
             }]
         },
         tooltips: {
             callbacks: {
-                label: function (tooltipItem, data) { return tooltipItem.yLabel.toFixed(0.00) + ' ZAR'; }
+                label: function (tooltipItem, data) { return tooltipItem.yLabel.toFixed(2) + ' ZAR'; }
             }
         }
     }
@@ -269,27 +269,29 @@ var drawCharts = function(days) {
                 //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
                 data: count_usdzar,
                 backgroundColor: 'rgba(71, 65, 244, 0.1)',
-                borderColor: 'rgba(71, 65, 244, 0.1)',
+                borderColor: 'rgba(71, 65, 244, 1)',
                 borderWidth: 1,
                 pointRadius: 0
 
             },
             {
                 label: 'EUR',
+                hidden: true,
                 //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
                 data: count_eurzar,
                 backgroundColor: 'rgba(32, 158, 28, 0.1)',
-                borderColor: 'rgba(32, 158, 28, 0.1)',
+                borderColor: 'rgba(32, 158, 28, 1)',
                 borderWidth: 1,
                 pointRadius: 0
 
             },
             {
                 label: 'GBP',
+                hidden: true,
                 //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
                 data: count_gbpzar,
                 backgroundColor: 'rgba(241, 244, 65, 0.1)',
-                borderColor: 'rgba(241, 244, 65, 0.1)',
+                borderColor: 'rgba(241, 244, 65, 1)',
                 borderWidth: 1,
                 pointRadius: 0
 
@@ -301,7 +303,7 @@ var drawCharts = function(days) {
     });
 }
 
-drawCharts(1);
+drawCharts(3);
 
 
 // reload the page every 5 minutes

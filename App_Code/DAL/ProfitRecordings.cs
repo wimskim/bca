@@ -25,13 +25,13 @@ namespace CryptoTrader.DAL
         {
             return ExecuteDataSet(@"CryptoTrades", @"
                                                     SELECT 
-	                                                    min(id) as Id,
-	                                                    min(Exchange) as Exchange,
-	                                                    avg(LunoBid) as LunoBid,
-                                                        avg(ExchangeAsk) as ExchangeAsk,
-	                                                    min(Currency) as Currency,
-	                                                    avg(CurrencyToZarExchangeRate) as CurrencyToZarExchangeRate,
-                                                        avg(ProfitPerc) as [ProfitPerc],
+	                                                   max(id) as Id,
+	                                                    max(Exchange) as Exchange,
+	                                                    max(LunoBid) as LunoBid,
+	                                                    max(ExchangeAsk) as ExchangeAsk,
+	                                                    max(Currency) as Currency,
+	                                                    max(CurrencyToZarExchangeRate) as CurrencyToZarExchangeRate,
+                                                        max(ProfitPerc) as ProfitPerc,
 	                                                    dateadd(minute, datediff(minute, 0, TimeStamp) /  @avgPerMinutes * @avgPerMinutes, 0) as [TimeStamp],
 	                                                    count(*) as [Records_in_Interval]
                                                     FROM ProfitRecordings

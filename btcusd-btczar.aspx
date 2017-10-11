@@ -14,7 +14,7 @@
         <div class="col-xs-12">
               <h4>History</h4>
             <div class="period">
-                <a href="#" onclick="drawCharts(1);">last day</a> |
+                
                 <a href="#" onclick="drawCharts(3);">last 3 days</a> |
                 <a href="#" onclick="drawCharts(7);">last week</a> |
                 <a href="#" onclick="drawCharts(30);">last 30 days</a> |
@@ -57,7 +57,7 @@
     <script src="assets/js/charts/Chart.min.js" type="text/javascript"></script>
     <script src="assets/js/charts/average.js" type="text/javascript"></script>
     <script src="assets/js/charts/median.js" type="text/javascript"></script>
-    <script src="assets/js/charts/script.js?ver=5" type="text/javascript"></script>
+    <script src="assets/js/charts/script.js?ver=6" type="text/javascript"></script>
     <script type="text/javascript">
        
 
