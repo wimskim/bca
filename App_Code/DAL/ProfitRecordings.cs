@@ -21,14 +21,31 @@ namespace CryptoTrader.DAL
             return ExecuteDataSet("CryptoTrades", "SELECT * FROM ProfitRecordings WITH (NOLOCK) WHERE Id = @Id", CommandType.Text,
                 CreateParameter("@Id",SqlDbType.Int,id));
         }
-        public DataSet GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,DateTime dtfrom, DateTime dtTo)
+        public DataSet GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,DateTime dtfrom, DateTime dtTo, int avgPerMinutes)
         {
-            return ExecuteDataSet(@"CryptoTrades", "SELECT * FROM ProfitRecordings WITH (NOLOCK) WHERE (exchange = '" + exchange.ToString() + "' or exchange = '" + ((int)exchange).ToString() + @"')
-                                                            AND (Currency = '" + currency.ToString() + "' or Currency = '" + ((int)currency).ToString() + @"')
-                                                            AND TimeStamp Between @dtFrom AND @dtTo 
-                                                            order by TimeStamp desc", CommandType.Text, 
+            return ExecuteDataSet(@"CryptoTrades", @"
+                                                    SELECT 
+	                                                    min(id) as Id,
+	                                                    min(Exchange) as Exchange,
+	                                                    avg(LunoBid) as LunoBid,
+                                                        avg(ExchangeAsk) as ExchangeAsk,
+	                                                    min(Currency) as Currency,
+	                                                    avg(CurrencyToZarExchangeRate) as CurrencyToZarExchangeRate,
+                                                        avg(ProfitPerc) as [ProfitPerc],
+	                                                    dateadd(minute, datediff(minute, 0, TimeStamp) /  @avgPerMinutes * @avgPerMinutes, 0) as [TimeStamp],
+	                                                    count(*) as [Records_in_Interval]
+                                                    FROM ProfitRecordings
+                                                    WHERE Exchange = @Exchange
+                                                      and Currency = @Currency
+                                                      and TimeStamp Between @dtFrom and @dtTo
+                                                    GROUP BY dateadd(minute, datediff(minute, 0,TimeStamp) /   @avgPerMinutes * @avgPerMinutes, 0)
+                                                    ORDER BY [TimeStamp] DESC
+                                            ", CommandType.Text,
                                                             CreateParameter("@dtFrom", SqlDbType.DateTime, dtfrom, ParameterDirection.InputOutput),
-                                                            CreateParameter("@dtTo", SqlDbType.DateTime, dtTo, ParameterDirection.InputOutput)
+                                                            CreateParameter("@dtTo", SqlDbType.DateTime, dtTo, ParameterDirection.InputOutput),
+                                                            CreateParameter("@Exchange", SqlDbType.VarChar, exchange.ToString(), ParameterDirection.Input),
+                                                            CreateParameter("@Currency", SqlDbType.VarChar, currency.ToString(), ParameterDirection.Input),
+                                                            CreateParameter("@avgPerMinutes", SqlDbType.Int, avgPerMinutes, ParameterDirection.Input)
                                     );
         }
         public DataSet GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency)

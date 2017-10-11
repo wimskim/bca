@@ -42,12 +42,13 @@ namespace CryptoTrader
             DateTime dtfrom = DateTime.Now.AddDays(days * -1);
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            
+
+          
 
             sb.Append("{");
 
             sb.Append("\"BitlishUSD\": [");
-            BLL.ProfitRecordingCollection profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.USD, dtfrom,dtto);
+            BLL.ProfitRecordingCollection profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.USD, dtfrom,dtto, days);
             for (int x = 0; x < profits.Count; x++)
             {
                 BLL.ProfitRecording pf = profits[x];
@@ -66,7 +67,7 @@ namespace CryptoTrader
             }
             sb.Append("],");
             sb.Append("\"BitlishEUR\": [");
-            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.EUR,dtfrom, dtto);
+            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.EUR,dtfrom, dtto, days);
             for (int x = 0; x < profits.Count; x++)
             {
                 BLL.ProfitRecording pf = profits[x];
@@ -86,7 +87,7 @@ namespace CryptoTrader
             
             sb.Append("],");
             sb.Append("\"CEXUSD\": [");
-            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.USD, dtfrom, dtto);
+            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.USD, dtfrom, dtto, days);
             for (int x = 0; x < profits.Count; x++)
             {
                 BLL.ProfitRecording pf = profits[x];
@@ -105,7 +106,7 @@ namespace CryptoTrader
             }
             sb.Append("],");
             sb.Append("\"CEXEUR\": [");
-            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.EUR, dtfrom,dtto);
+            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.EUR, dtfrom,dtto, days);
             for (int x = 0; x < profits.Count; x++)
             {
                 BLL.ProfitRecording pf = profits[x];
@@ -124,7 +125,7 @@ namespace CryptoTrader
             }
             sb.Append("],");
             sb.Append("\"CEXGBP\": [");
-            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.GBP, dtfrom,dtto);
+            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.GBP, dtfrom,dtto, days);
             for (int x = 0; x < profits.Count; x++)
             {
                 BLL.ProfitRecording pf = profits[x];

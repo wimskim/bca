@@ -245,54 +245,20 @@ namespace CryptoTrader.BLL
 		{
             ProfitRecording pf = new ProfitRecording();
 
-            // lblTest.InnerHtml += "<br><br>";
-
             var luno = LunoApi.GetLunoResult(0.00001M);
             decimal bestprice = ((luno.ask.price + luno.bid.price) / 2);
 
-            //lblTest.InnerHtml += "Luno: " + bestprice.ToString("0") + "<BR>";
-            //lblTest.InnerHtml += "<br>";
-
             var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcUsd, 1);
-            //lblTest.InnerHtml += "Bitlish USD: " + bitlishUSD.ask.price.ToString("0.00") + "<BR>";
-
-
             var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcEur, 1);
-            //lblTest.InnerHtml += "Bitlish EUR: " + bitlishEUR.ask.price.ToString("0.00") + "<BR>";
-
-
-            var bitlishRUB = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcRub, 1);
-            //lblTest.InnerHtml += "Bitlish RUB: " + bitlishRUB.ask.price.ToString("0.00") + "<BR>";
-            //lblTest.InnerHtml += "<br>";
-
+  
             var cexUSD = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Usd, 1);
-            //lblTest.InnerHtml += "CEX USD: " + cexUSD.ask.price.ToString("0.00") + "<BR>";
-
-            var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Eur, 1);
-            //lblTest.InnerHtml += "CEX EUR: " + cexEUR.ask.price.ToString("0.00") + "<BR>";
-
-            var cexRUB = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Rub, 1);
-            //lblTest.InnerHtml += "CEX RUB: " + cexRUB.ask.price.ToString("0.00") + "<BR>";
-
+            var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Eur, 1);       
             var cexGBP = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Gbp, 1);
-            //lblTest.InnerHtml += "CEX GBP: " + cexGBP.ask.price.ToString("0.00") + "<BR>";
-
-            //lblTest.InnerHtml += "<br>";
+           
             decimal usdzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Usd, false);
             decimal eurzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Eur, false);
             decimal rubzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Rub, false);
             decimal gbpzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Gbp, false);
-
-            //lblTest.InnerHtml += "USDZAR: " + usdzar.ToString() + "<BR>";
-            //lblTest.InnerHtml += "EURZAR: " + eurzar.ToString() + "<BR>";
-            //lblTest.InnerHtml += "RUBZAR: " + rubzar.ToString() + "<BR>";
-            //lblTest.InnerHtml += "GBPZAR: " + gbpzar.ToString() + "<BR>";
-
-
-            //lblTest.InnerHtml += "<br><br>";
-
-
-            //string strColor = "green";
 
 
             // Bitlish USD;
@@ -310,12 +276,19 @@ namespace CryptoTrader.BLL
                 pf.ProfitPerc = profPerc;
                 pf.Save();
             }
-            catch { }
+            catch
+            {// duplicate last recording
 
-
-
-            //strColor = (profPerc < 0 ? "red" : "green");
-            //lblProfits.InnerHtml += "Bitlish USD <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.USD);
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.Save();
+            }
 
             // Bitlish EUR;
             try
@@ -330,16 +303,19 @@ namespace CryptoTrader.BLL
                 pf.ProfitPerc = profPerc;
                 pf.Save();
             }
-            catch { }
-            //strColor = (profPerc < 0 ? "red" : "green");
-            //lblProfits.InnerHtml += "Bitlish EUR <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
+            catch
+            {// duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.EUR);
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.Save();
+            }
 
-            //// Bitlish RUB;
-            //decimal decBitlishRUB = GetProfit(bitlishRUB.ask.price, luno.bid.price, rubzar, 0.01M, 5.1M, 100000);
-            //lblTest.InnerHtml += "Bitlish RUB " + decBitlishRUB.ToString("0.00") + " %<br>";
-
-
-            //lblProfits.InnerHtml += "<br>";
 
             // CEX USD;
             try
@@ -354,9 +330,19 @@ namespace CryptoTrader.BLL
                 pf.ProfitPerc = profPerc;
                 pf.Save();
             }
-            catch { }
-            //lblProfits.InnerHtml += "CEX USD <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
-
+            catch
+            {// duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.USD);
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.Save();
+            }
+    
             // CEX EUR;
             try
             {
@@ -370,9 +356,19 @@ namespace CryptoTrader.BLL
                 pf.ProfitPerc = profPerc;
                 pf.Save();
             }
-            catch { }
-            //lblProfits.InnerHtml += "CEX EUR <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
-
+            catch
+            {// duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.EUR);
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.Save();
+            }
+        
             // CEX GBP;
             try
             {
@@ -386,12 +382,17 @@ namespace CryptoTrader.BLL
                 pf.ProfitPerc = profPerc;
                 pf.Save();
             }
-            catch { }
-            //lblProfits.InnerHtml += "CEX GBP <font color='" + strColor + "'>" + profPerc.ToString("0.00") + " %</font><br>";
-
-            //// CEX RUB;
-            //decimal decCEXRUB = GetProfit(cexRUB.ask.price, luno.bid.price, rubzar, 0.01M, 5M, 100000);
-            //lblTest.InnerHtml += "CEX RUB " + decCEXRUB.ToString("0.00") + " %<br>";
+            catch { // duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.GBP);
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.Save();
+            }
 
 
 
