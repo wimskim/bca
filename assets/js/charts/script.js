@@ -303,11 +303,11 @@ var drawCharts = function(days) {
     });
 }
 
-drawCharts(3);
+drawCharts(1);
 
 
 // reload the page every 5 minutes
-setTimeout(RefreshPage, (1000 * 60 * 1))
+setTimeout(RefreshPage, (1000 * 60 * 5))
 function RefreshPage() {
     location.reload();
 }
