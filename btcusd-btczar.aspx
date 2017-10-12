@@ -14,12 +14,12 @@
         <div class="col-xs-12">
               <h4>History</h4>
             <div class="period">
-                <a href="" onclick="drawCharts(1);">last day</a> |
-                <a href="" onclick="drawCharts(3);">last 3 days</a> |
-                <a href="" onclick="drawCharts(7);">last week</a> |
-                <a href="" onclick="drawCharts(30);">last 30 days</a> |
-                <a href="" onclick="drawCharts(90);">last 90 days</a> |
-                <a href="" onclick="drawCharts(365);">last year</a> 
+                <a href="#" onclick="drawCharts(1);">last day</a> |
+                <a href="#" onclick="drawCharts(3);">last 3 days</a> |
+                <a href="#" onclick="drawCharts(7);">last week</a> |
+                <a href="#" onclick="drawCharts(30);">last 30 days</a> |
+                <a href="#" onclick="drawCharts(90);">last 90 days</a> |
+                <a href="#" onclick="drawCharts(365);">last year</a> 
             </div>
         </div>
 
