@@ -145,7 +145,8 @@ var drawCharts = function(days) {
                 backgroundColor: 'rgba(241, 244, 65, 0.1)',
                 borderColor: 'rgba(241, 244, 65, 1)',
                 borderWidth: 1,
-                pointRadius: 0
+                pointRadius: 0,
+                hidden: true,
             }
             ]
         };
@@ -249,7 +250,8 @@ var drawCharts = function(days) {
                 backgroundColor: 'rgba(241, 244, 65, 0.1)',
                 borderColor: 'rgba(241, 244, 65, 1)',
                 borderWidth: 1,
-                pointRadius: 0
+                pointRadius: 0,
+                hidden: true,
 
             }
 
