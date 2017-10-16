@@ -82,6 +82,7 @@ var drawCharts = function(days) {
         blockData.CEXUSD = blockData.CEXUSD.sort(function (a, b) { return a.id - b.id; });
         blockData.CEXEUR = blockData.CEXEUR.sort(function (a, b) { return a.id - b.id; });
         blockData.CEXGBP = blockData.CEXGBP.sort(function (a, b) { return a.id - b.id; });
+        blockData.BitFinexUSD = blockData.BitFinexUSD.sort(function (a, b) { return a.id - b.id; });
 
 
 
@@ -98,6 +99,7 @@ var drawCharts = function(days) {
         var count_CEXUSD = blockData.CEXUSD.map(function (item) { return item.p; });
         var count_CEXEUR = blockData.CEXEUR.map(function (item) { return item.p; });
         var count_CEXGBP = blockData.CEXGBP.map(function (item) { return item.p; });
+        var count_BitFinexUSD = blockData.BitFinexUSD.map(function (item) { return item.p; });
 
         var data_count_percent = {
             labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),
@@ -147,6 +149,16 @@ var drawCharts = function(days) {
                 borderWidth: 1,
                 pointRadius: 0,
                 hidden: true,
+            },
+            {
+                label: 'Bitfinex USD',
+                //data: myMovingAverage(count_BitFinexUSD, 4).slice(-periods),
+                data: count_BitFinexUSD,
+                backgroundColor: 'rgba(66, 203, 244, 0.1)',
+                borderColor: 'rgba(66, 203, 244, 1)',
+                borderWidth: 1,
+                pointRadius: 0,
+                hidden: false,
             }
             ]
         };
@@ -184,6 +196,13 @@ var drawCharts = function(days) {
             return price;
         });
         var count_cex_gbp_to_zar = blockData.CEXGBP.map(function (item) {
+            var price = (item.ask * (item.rate + 0.4));
+            var fees = 3.5 + 0.2;
+            price = price + (price * (fees / 100));
+            price = price + (0.001 * item.ask); // transfer fee
+            return price;
+        });
+        var count_bitfinex_usd_to_zar = blockData.BitFinexUSD.map(function (item) {
             var price = (item.ask * (item.rate + 0.4));
             var fees = 3.5 + 0.2;
             price = price + (price * (fees / 100));
@@ -253,7 +272,18 @@ var drawCharts = function(days) {
                 pointRadius: 0,
                 hidden: true,
 
-            }
+            },
+             {
+                 label: 'Bitfinex USD',
+                 //data: myMovingAverage(count_bitfinex_usd_to_zar, 4).slice(-periods),
+                 data: count_bitfinex_usd_to_zar,
+                 backgroundColor: 'rgba(66, 203, 244, 0.1)',
+                 borderColor: 'rgba(66, 203, 244, 1)',
+                 borderWidth: 1,
+                 pointRadius: 0,
+                 hidden: false,
+
+             }
 
 
             ]

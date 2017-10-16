@@ -142,6 +142,25 @@ namespace CryptoTrader
                     sb.Append(",");
 
             }
+            sb.Append("],");
+            sb.Append("\"BitFinexUSD\": [");
+            profits = BLL.ProfitRecordingCollection.GetByExchangeAndCurrecyBetween(BLL.ProfitRecording.enExchange.Bitfinex, BLL.ProfitRecording.enCurrency.USD, dtfrom, dtto, days);
+            for (int x = 0; x < profits.Count; x++)
+            {
+                BLL.ProfitRecording pf = profits[x];
+                sb.Append("{");
+                sb.Append("\"id\":" + pf.Id.ToString() + ",");
+                sb.Append("\"ts\":\"" + pf.TimeStamp.ToString("d MMM yyyy, HH:mm") + "\",");
+                sb.Append("\"p\":" + pf.ProfitPerc + ",");
+                sb.Append("\"rate\":" + pf.CurrencyToZARExchangeRate + ",");
+                sb.Append("\"ask\":" + pf.ExchangeAsk + ",");
+                sb.Append("\"bid\":" + pf.LunoBid + "");
+                sb.Append("}");
+
+                if (x < profits.Count - 1)
+                    sb.Append(",");
+
+            }
             sb.Append("]");
 
 

@@ -62,19 +62,26 @@ namespace CryptoTrader
             gbpzar = pf.CurrencyToZARExchangeRate;
             pfs.Add(pf);
 
+            lblProfits.InnerHtml += "<br>";
+
+            pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Bitfinex, BLL.ProfitRecording.enCurrency.USD);
+            strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
+            lblProfits.InnerHtml += "Bitfinex USD: &euro;" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
+            pfs.Add(pf);
+     
+
             BLL.ProfitRecording latest = pfs.Find(delegate (BLL.ProfitRecording p) { return p.TimeStamp == pfs.Max(t => t.TimeStamp); });
 
 
             lblProfits.InnerHtml += "<br>";
             lblProfits.InnerHtml += "Luno ZAR: R" + latest.LunoBid.ToString("0") + "<br>";
+            lblProfits.InnerHtml += "<br>";
             lblProfits.InnerHtml += "USDZAR: R" + usdzar.ToString("0.00")  + "<br>";
             lblProfits.InnerHtml += "EURZAR: R" + eurzar.ToString("0.00") + "<br>";
             lblProfits.InnerHtml += "GBPZAR: R" + gbpzar.ToString("0.00") + "<br>";
 
-            lblProfits.InnerHtml += "<br>";
-
-            lblProfits.InnerHtml += "Last Update: " + latest.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + "<br>";
-
+            
+            
         }
 
    

@@ -13,6 +13,7 @@ namespace CryptoTrader.BLL
         {
             Bitlish = 0,
             Cex = 1,   
+            Bitfinex = 2
         }
         public enum enCurrency : int
         {
@@ -254,6 +255,8 @@ namespace CryptoTrader.BLL
             var cexUSD = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Usd, 1);
             var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Eur, 1);       
             var cexGBP = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Gbp, 1);
+
+            var bitfinexUSD = BitfinexApi.GetBestPrices(BitfinexSymbolEnum.BtcUsd, 1);
            
             decimal usdzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Usd, false);
             decimal eurzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Eur, false);
@@ -384,6 +387,32 @@ namespace CryptoTrader.BLL
             }
             catch { // duplicate last recording
                 ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.GBP);
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.Save();
+            }
+
+            // Bitfinex USD;
+            try
+            {
+                profPerc = GetProfit(bitfinexUSD.ask.price, luno.bid.price, usdzar, 0.4M, 3.5M, 2000);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Bitfinex;
+                pf.Currency = enCurrency.USD;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = bitfinexUSD.ask.price;
+                pf.CurrencyToZARExchangeRate = usdzar;
+                pf.ProfitPerc = profPerc;
+                pf.Save();
+            }
+            catch
+            { // duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitfinex, enCurrency.USD);
                 pf = new ProfitRecording();
                 pf.Exchange = pflast.Exchange;
                 pf.Currency = pflast.Currency;

@@ -108,6 +108,7 @@
     <Compile Include="App_Code\BLL\Constants\Constants.cs" />
     <Compile Include="App_Code\BLL\Entities\ProfitRecording\ProfitRecording.cs" />
     <Compile Include="App_Code\BLL\Entities\ProfitRecording\ProfitRecordingCollection.cs" />
+    <Compile Include="App_Code\Bitfinex.cs" />
     <Compile Include="App_Code\CexApi.cs" />
     <Compile Include="App_Code\CurrencyHelper.cs" />
     <Compile Include="App_Code\DAL\ProfitRecordings.cs" />
