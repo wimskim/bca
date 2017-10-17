@@ -28,6 +28,9 @@ namespace CryptoTrader
             decimal eurzar = 0;
             decimal gbpzar = 0;
 
+            decimal cexusd = 0;
+            decimal bitfinexusd = 0;
+
             System.Collections.Generic.List<BLL.ProfitRecording> pfs = new List<BLL.ProfitRecording>();
 
 
@@ -50,6 +53,7 @@ namespace CryptoTrader
             lblProfits.InnerHtml += "CEX USD: $" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
             usdzar = pf.CurrencyToZARExchangeRate;
             pfs.Add(pf);
+            cexusd = pf.ExchangeAsk;
 
 
             pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.EUR);
@@ -68,7 +72,7 @@ namespace CryptoTrader
             strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
             lblProfits.InnerHtml += "Bitfinex USD: &euro;" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
             pfs.Add(pf);
-     
+            bitfinexusd = pf.ExchangeAsk;
 
             BLL.ProfitRecording latest = pfs.Find(delegate (BLL.ProfitRecording p) { return p.TimeStamp == pfs.Max(t => t.TimeStamp); });
 
@@ -80,8 +84,11 @@ namespace CryptoTrader
             lblProfits.InnerHtml += "EURZAR: R" + eurzar.ToString("0.00") + "<br>";
             lblProfits.InnerHtml += "GBPZAR: R" + gbpzar.ToString("0.00") + "<br>";
 
-            
-            
+
+
+
+            lblCEXBitfinex.InnerHtml = "<br>Perc difference:  " + (((cexusd / bitfinexusd) * 100) - 100).ToString("0.00") + "%";
+
         }
 
    

@@ -58,11 +58,13 @@
         <div class="col-xs-12">
             <div class="chart">
                  <h5>CEX/Bitfinex USD Arb</h5>
+                 <label id="lblCEXBitfinex" runat="server"></label>
                 <canvas id="chart_cex_bitfinex"></canvas>
             </div>
         </div>
     </div>
 
+    
 
     <script src="assets/js/charts/Chart.min.js" type="text/javascript"></script>
     <script src="assets/js/charts/average.js" type="text/javascript"></script>
