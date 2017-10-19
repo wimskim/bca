@@ -86,8 +86,9 @@ namespace CryptoTrader
 
 
 
-
-            lblCEXBitfinex.InnerHtml = "<br>Perc difference:  " + (((cexusd / bitfinexusd) * 100) - 100).ToString("0.00") + "%";
+            lblCEXBitfinex.InnerHtml += "<br>CEX:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$" + cexusd.ToString("0");
+            lblCEXBitfinex.InnerHtml += "<br>Bitfinex:&nbsp;&nbsp;$" + bitfinexusd.ToString("0");
+            lblCEXBitfinex.InnerHtml += "<br>Perc difference:  " + (((cexusd / bitfinexusd) * 100) - 100).ToString("0.00") + "%";
 
         }
 
