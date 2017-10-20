@@ -249,14 +249,14 @@ namespace CryptoTrader.BLL
             var luno = LunoApi.GetLunoResult(0.00001M);
             decimal bestprice = ((luno.ask.price + luno.bid.price) / 2);
 
-            var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcUsd, 1);
-            var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcEur, 1);
+            var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcUsd, 0.01m);
+            var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcEur, 0.01m);
   
-            var cexUSD = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Usd, 1);
-            var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Eur, 1);       
-            var cexGBP = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Gbp, 1);
+            var cexUSD = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Usd, 0.01m);
+            var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Eur, 0.01m);       
+            var cexGBP = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Gbp, 0.01m);
 
-            var bitfinexUSD = BitfinexApi.GetBestPrices(BitfinexSymbolEnum.BtcUsd, 1);
+            var bitfinexUSD = BitfinexApi.GetBestPrices(BitfinexSymbolEnum.BtcUsd, 0.01m);
            
             decimal usdzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Usd, false);
             decimal eurzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Eur, false);
