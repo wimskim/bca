@@ -268,7 +268,7 @@ namespace CryptoTrader.BLL
             decimal profPerc = 0;
             try
             {
-                profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4, 2000);
+                profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 3.5M, 2000);
 
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Bitlish;
@@ -296,7 +296,7 @@ namespace CryptoTrader.BLL
             // Bitlish EUR;
             try
             {
-                profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4, 1500);
+                profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 3.5M, 1500);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Bitlish;
                 pf.Currency = enCurrency.EUR;

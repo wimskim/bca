@@ -69,7 +69,7 @@
     <script src="assets/js/charts/Chart.min.js" type="text/javascript"></script>
     <script src="assets/js/charts/average.js" type="text/javascript"></script>
     <script src="assets/js/charts/median.js" type="text/javascript"></script>
-    <script src="assets/js/charts/script.js?ver=10" type="text/javascript"></script>
+    <script src="assets/js/charts/script.js?ver=111" type="text/javascript"></script>
     <script type="text/javascript">
        
 
