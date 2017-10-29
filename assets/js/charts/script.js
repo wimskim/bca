@@ -421,10 +421,10 @@ var drawCharts = function (days) {
 
         {
           label: 'Perc',
-          data: myMovingAverage(count_bitfinex_cex_perc, 4).slice(-periods),
+          //data: myMovingAverage(count_bitfinex_cex_perc, 4).slice(-periods),
           data: count_bitfinex_cex_perc,
-          backgroundColor: 'rgba(66, 244, 92, 0.1)',
-          borderColor: 'rgba(66, 244, 92, 1)',
+          backgroundColor: 'rgba(44, 23, 89, 0.1)',
+          borderColor: 'rgba(44, 23, 89, 1)',
           borderWidth: 1,
           pointRadius: 0,
           hidden: false,
