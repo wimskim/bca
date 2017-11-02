@@ -113,6 +113,7 @@
     <Compile Include="App_Code\CurrencyHelper.cs" />
     <Compile Include="App_Code\DAL\ProfitRecordings.cs" />
     <Compile Include="App_Code\DAL\DALBase.cs" />
+    <Content Include="App_Code\JsonValue.cs" />
     <Compile Include="App_Code\LunoApi.cs" />
     <Compile Include="btcusd-btczar.aspx.cs">
       <DependentUpon>btcusd-btczar.aspx</DependentUpon>

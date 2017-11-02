@@ -170,7 +170,7 @@ namespace CryptoTrader
 
         private static ExchangeRate GetRateExchangeCurrencyConversion(string fromCurrency, string toCurrency)
         {
-            var apiUrl = string.Format("http://rate-exchange.appspot.com/currency?from={0}&to={1}", fromCurrency, toCurrency);
+            var apiUrl = string.Format("http://free.currencyconverterapi.com/api/v4/convert?q={0}_{1}", fromCurrency.ToUpper(), toCurrency.ToUpper());
             var webRequest = (HttpWebRequest)WebRequest.Create(apiUrl);
 
             // else call the exchange rate api
@@ -179,7 +179,23 @@ namespace CryptoTrader
 
             if (!string.IsNullOrWhiteSpace(result))
             {
-                var exchangeRate = JsonConvert.DeserializeObject<ExchangeRate>(result);
+
+                var exchangeRate = new ExchangeRate()
+                {
+                    from = fromCurrency,
+                    to = toCurrency,
+                    rate = 0
+                };
+                
+                dynamic jObj = JsonConvert.DeserializeObject(result);
+                
+                foreach (var child in jObj.results.Children())
+                {
+                    // Console.WriteLine("Item ID: {0}", child.First.id);
+                    //Console.WriteLine("Item VAL: {0}", child.First.val);
+                    exchangeRate.rate = child.First.val;
+                }
+
                 return exchangeRate;
             }
             return null;
