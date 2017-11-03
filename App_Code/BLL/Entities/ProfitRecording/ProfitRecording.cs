@@ -257,11 +257,31 @@ namespace CryptoTrader.BLL
             var cexGBP = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Gbp, 0.01m);
 
             var bitfinexUSD = BitfinexApi.GetBestPrices(BitfinexSymbolEnum.BtcUsd, 0.01m);
-           
-            decimal usdzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Usd, false);
-            decimal eurzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Eur, false);
-            decimal rubzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Rub, false);
-            decimal gbpzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Gbp, false);
+
+            decimal usdzar = 0m;
+            decimal eurzar = 0m;
+            decimal rubzar = 0m;
+            decimal gbpzar = 0m;
+
+
+            try
+            {
+                usdzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Usd, false);
+                eurzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Eur, false);
+                rubzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Rub, false);
+                gbpzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Gbp, false);
+            }
+            catch
+            {
+                // failed to get live rates - use latest
+                ProfitRecording recEUR = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.EUR);
+                ProfitRecording recUSD = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.USD);
+                ProfitRecording recGBP = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.GBP);
+
+                eurzar = recEUR.CurrencyToZARExchangeRate;
+                usdzar = recUSD.CurrencyToZARExchangeRate;
+                gbpzar = recGBP.CurrencyToZARExchangeRate;
+            }
 
 
             // Bitlish USD;
