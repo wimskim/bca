@@ -71,11 +71,11 @@ namespace CryptoTrader
             else
             {
                 BestLunohBidAsk bestprices = new BestLunohBidAsk();
-                bestprices.ask.price = 4804M;
-                bestprices.ask.volume = 4804M;
+                bestprices.ask.price = 4959M;
+                bestprices.ask.volume = 4959M;
 
-                bestprices.bid.price = 4804M;
-                bestprices.ask.volume = 4804M;
+                bestprices.bid.price = 4959M;
+                bestprices.ask.volume = 4959M;
 
                 return bestprices;
             }
