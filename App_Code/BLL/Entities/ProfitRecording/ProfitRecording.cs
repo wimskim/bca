@@ -506,9 +506,9 @@ namespace CryptoTrader.BLL
             catch
             {
                 // failed to get live rates - use latest
-                ProfitRecording recEUR = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.EUR, "ETH");
-                ProfitRecording recUSD = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.USD, "ETH");
-                ProfitRecording recGBP = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.GBP, "ETH");
+                ProfitRecording recEUR = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.EUR, "BTC");
+                ProfitRecording recUSD = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.USD, "BTC");
+                ProfitRecording recGBP = GetLatestByExchangeAndCurrnecy(enExchange.Cex, enCurrency.GBP, "BTC");
 
                 eurzar = recEUR.CurrencyToZARExchangeRate;
                 usdzar = recUSD.CurrencyToZARExchangeRate;
