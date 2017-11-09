@@ -21,12 +21,13 @@ namespace CryptoTrader.DAL
             return ExecuteDataSet("CryptoTrades", "SELECT * FROM ProfitRecordings WITH (NOLOCK) WHERE Id = @Id", CommandType.Text,
                 CreateParameter("@Id",SqlDbType.Int,id));
         }
-        public DataSet GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,DateTime dtfrom, DateTime dtTo, int avgPerMinutes)
+        public DataSet GetByExchangeAndCurrecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,DateTime dtfrom, DateTime dtTo, int avgPerMinutes, string arbSymbol)
         {
             return ExecuteDataSet(@"CryptoTrades", @"
                                                     SELECT 
 	                                                   max(id) as Id,
 	                                                    max(Exchange) as Exchange,
+                                                        max(ArbSymbol) as ArbSymbol,
 	                                                    max(LunoBid) as LunoBid,
 	                                                    max(ExchangeAsk) as ExchangeAsk,
 	                                                    max(Currency) as Currency,
@@ -38,6 +39,7 @@ namespace CryptoTrader.DAL
                                                     WHERE Exchange = @Exchange
                                                       and Currency = @Currency
                                                       and TimeStamp Between @dtFrom and @dtTo
+                                                      and arbSymbol = @arbSymbol
                                                     GROUP BY dateadd(minute, datediff(minute, 0,TimeStamp) /   @avgPerMinutes * @avgPerMinutes, 0)
                                                     ORDER BY [TimeStamp] DESC
                                             ", CommandType.Text,
@@ -45,13 +47,15 @@ namespace CryptoTrader.DAL
                                                             CreateParameter("@dtTo", SqlDbType.DateTime, dtTo, ParameterDirection.InputOutput),
                                                             CreateParameter("@Exchange", SqlDbType.VarChar, exchange.ToString(), ParameterDirection.Input),
                                                             CreateParameter("@Currency", SqlDbType.VarChar, currency.ToString(), ParameterDirection.Input),
-                                                            CreateParameter("@avgPerMinutes", SqlDbType.Int, avgPerMinutes, ParameterDirection.Input)
+                                                            CreateParameter("@avgPerMinutes", SqlDbType.Int, avgPerMinutes, ParameterDirection.Input),
+                                                            CreateParameter("@arbSymbol", SqlDbType.VarChar, arbSymbol, ParameterDirection.Input)
                                     );
         }
-        public DataSet GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency)
+        public DataSet GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange exchange, BLL.ProfitRecording.enCurrency currency,string arbSymbol)
         {
             return ExecuteDataSet(@"CryptoTrades", "SELECT top 1 * FROM ProfitRecordings WITH (NOLOCK) WHERE (exchange = '" + exchange.ToString() + "' or exchange = '" + ((int)exchange).ToString() + @"')
                                                             AND ( Currency = '" + currency.ToString() + "' or Currency = '" + ((int)currency).ToString() + @"') 
+                                                            AND ( ArbSymbol = '" + arbSymbol + @"') 
                                             order by TimeStamp desc", CommandType.Text);
         }
 
@@ -62,7 +66,8 @@ namespace CryptoTrader.DAL
                                 decimal lunoBid,
                                 decimal exchangeAsk,
                                 decimal currencyToZARExchangeRate,
-                                decimal profitPerc
+                                decimal profitPerc,
+                                string  arbSymbol
                                 )
         {
             System.Text.StringBuilder query = new System.Text.StringBuilder();
@@ -83,7 +88,8 @@ namespace CryptoTrader.DAL
                                             LunoBid = @LunoBid,
                                             ExchangeAsk = @ExchangeAsk,
                                             CurrencyToZARExchangeRate = @CurrencyToZARExchangeRate,
-                                            ProfitPerc = @ProfitPerc
+                                            ProfitPerc = @ProfitPerc,
+                                            ArbSymbol = @ArbSymbol
 
     		                            WHERE 
     			                            [Id]                    = @Id
@@ -100,7 +106,8 @@ namespace CryptoTrader.DAL
                                                 ExchangeAsk,
                                                 CurrencyToZARExchangeRate,
                                                 ProfitPerc,
-                                                TimeStamp
+                                                TimeStamp,
+                                                ArbSymbol
                                             )
     		                             VALUES
     			                            (
@@ -111,7 +118,8 @@ namespace CryptoTrader.DAL
                                                 @ExchangeAsk,
                                                 @CurrencyToZARExchangeRate,
                                                 @ProfitPerc,
-                                                getDate()
+                                                getDate(),
+                                                @ArbSymbol
 
                                             )
 
@@ -129,12 +137,11 @@ namespace CryptoTrader.DAL
                                     CreateParameter("@Id", SqlDbType.BigInt, id, ParameterDirection.InputOutput),
                                     CreateParameter("@Exchange", SqlDbType.VarChar, exchange.ToString(), ParameterDirection.InputOutput),
                                     CreateParameter("@Currency", SqlDbType.VarChar, currency.ToString(), ParameterDirection.InputOutput),
-                                    
-                                    
                                     CreateParameter("@LunoBid", SqlDbType.Decimal, lunoBid, ParameterDirection.InputOutput),
                                     CreateParameter("@ExchangeAsk", SqlDbType.Decimal, exchangeAsk, ParameterDirection.InputOutput),
                                     CreateParameter("@CurrencyToZARExchangeRate", SqlDbType.Decimal, currencyToZARExchangeRate, ParameterDirection.InputOutput),
-                                    CreateParameter("@ProfitPerc", SqlDbType.Decimal, profitPerc, ParameterDirection.InputOutput)
+                                    CreateParameter("@ProfitPerc", SqlDbType.Decimal, profitPerc, ParameterDirection.InputOutput),
+                                    CreateParameter("@ArbSymbol", SqlDbType.VarChar, arbSymbol, ParameterDirection.InputOutput)
                             );
 
             id = int.Parse(cmd.Parameters["@id"].Value.ToString());

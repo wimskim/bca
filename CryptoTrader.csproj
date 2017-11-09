@@ -84,9 +84,11 @@
     <Content Include="assets\js\charts\average.js" />
     <Content Include="assets\js\charts\Chart.min.js" />
     <Content Include="assets\js\charts\median.js" />
-    <Content Include="assets\js\charts\script.js" />
+    <Content Include="assets\js\charts\scriptbtc.js" />
+    <Content Include="assets\js\charts\scripteth.js" />
     <Content Include="assets\js\html5shiv.js" />
     <Content Include="assets\js\respond.min.js" />
+    <Content Include="ethusd-ethzar.aspx" />
     <Content Include="btcusd-btczar.aspx" />
     <Content Include="ethbtc.aspx" />
     <Content Include="default.aspx" />
@@ -115,6 +117,13 @@
     <Compile Include="App_Code\DAL\DALBase.cs" />
     <Content Include="App_Code\JsonValue.cs" />
     <Compile Include="App_Code\LunoApi.cs" />
+    <Compile Include="ethusd-ethzar.aspx.cs">
+      <DependentUpon>ethusd-ethzar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ethusd-ethzar.aspx.designer.cs">
+      <DependentUpon>ethusd-ethzar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="btcusd-btczar.aspx.cs">
       <DependentUpon>btcusd-btczar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

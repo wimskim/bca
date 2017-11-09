@@ -84,7 +84,9 @@ namespace CryptoTrader
         BtcEur = 2,
         BtcRub = 3,
         BtcGbp = 4,
-        EthBtc = 5
+        EthBtc = 5,
+        EthUsd = 6,
+        EthEur = 7,
     }
 
 }

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Template/Site.master" AutoEventWireup="true"
-    CodeBehind="btcusd-btczar.aspx.cs" Inherits="CryptoTrader.btcusd_btczar" %>
+    CodeBehind="ethusd-ethzar.aspx.cs" Inherits="CryptoTrader.ethusd_ethzar" %>
 
 <asp:Content ID="cont" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="row">
@@ -54,35 +54,12 @@
     </div>
 
     
-     <div class="row">
-        <div class="col-xs-12">
-            <div class="chart">
-                 <h5>CEX/Bitfinex USD Arb</h5>
-                 <label id="lblCEXBitfinex" runat="server"></label>
-                <canvas id="chart_cex_bitfinex"></canvas>
-
-
-
-            </div>
-        </div>
-    </div>
-
-         <div class="row">
-        <div class="col-xs-12">
-            <div class="chart">
-             
-
-                <canvas id="chart_cex_bitfinex_perc"></canvas>
-            </div>
-        </div>
-    </div>
-
     
 
     <script src="assets/js/charts/Chart.min.js" type="text/javascript"></script>
     <script src="assets/js/charts/average.js" type="text/javascript"></script>
     <script src="assets/js/charts/median.js" type="text/javascript"></script>
-    <script src="assets/js/charts/scriptbtc.js?ver=12113" type="text/javascript"></script>
+    <script src="assets/js/charts/scripteth.js?ver=122d11" type="text/javascript"></script>
     <script type="text/javascript">
        
 

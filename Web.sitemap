@@ -2,8 +2,8 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/default.aspx" title="HOME"  description="">
 
-      <siteMapNode url="~/btcusd-btczar.aspx" title="BTC/USD to BTC/ZAR Arb" description="" />
-      <siteMapNode url="~/ethbtc.aspx" title="ETH/BTC Arb" description="" />
+      <siteMapNode url="~/btcusd-btczar.aspx" title="BTC Arb" description="" />
+      <siteMapNode url="~/ethusd-ethzar.aspx" title="ETH Arb" description="" />
     
     </siteMapNode>
 </siteMap>

@@ -10,8 +10,6 @@ var myMovingAverage = function (arr, win) {
 var ctx_count_percent = document.getElementById('chart_prof_percent').getContext('2d');
 var ctx_all_to_zar = document.getElementById('chart_all_to_zar').getContext('2d');
 var ctx_all_exchangerates = document.getElementById('chart_all_exchangerates').getContext('2d');
-var ctx_cex_bitfinex = document.getElementById('chart_cex_bitfinex').getContext('2d');
-var ctx_cex_bitfinex_perc = document.getElementById('chart_cex_bitfinex_perc').getContext('2d');
 
 
 
@@ -73,47 +71,9 @@ var chart_all_exchangerates = new Chart(ctx_all_exchangerates, {
     }
   }
 });
-
-var chart_cex_bitfinex = new Chart(ctx_cex_bitfinex, {
-  type: 'line',
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          callback: function (value, index, values) { return value.toFixed(0) + ' USD'; }
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: function (tooltipItem, data) { return tooltipItem.yLabel.toFixed(0) + ' USD'; }
-      }
-    }
-  }
-});
-
-
-var chart_cex_bitfinex_perc = new Chart(ctx_cex_bitfinex_perc, {
-  type: 'line',
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          callback: function (value, index, values) { return value.toFixed(2) + ' %'; }
-        }
-      }]
-    },
-    tooltips: {
-      callbacks: {
-        label: function (tooltipItem, data) { return tooltipItem.yLabel.toFixed(2) + ' %'; }
-      }
-    }
-  }
-});
-
 var drawCharts = function (days) {
 
-  fetch('json.aspx?getjson=getprofits&days=' + days).then(function (response) {
+  fetch('json.aspx?getjson=getprofits&arbsymbol=ETH&days=' + days).then(function (response) {
     return response.json();
   }).then(function (blockData) {
     blockData.BitlishUSD = blockData.BitlishUSD.sort(function (a, b) { return a.id - b.id; });
@@ -311,18 +271,7 @@ var drawCharts = function (days) {
         pointRadius: 0,
         hidden: true,
 
-      },
-       {
-         label: 'Bitfinex USD',
-         //data: myMovingAverage(count_bitfinex_usd_to_zar, 4).slice(-periods),
-         data: count_bitfinex_usd_to_zar,
-         backgroundColor: 'rgba(66, 203, 244, 0.1)',
-         borderColor: 'rgba(66, 203, 244, 1)',
-         borderWidth: 1,
-         pointRadius: 0,
-         hidden: false,
-
-       }
+      }
 
 
       ]
@@ -373,68 +322,9 @@ var drawCharts = function (days) {
     chart_all_exchangerates.update();
 
 
-    var count_cex_usd = blockData.CEXUSD.map(function (item) { return item.ask; });
-    var count_bitfinex_usd = blockData.BitFinexUSD.map(function (item) { return item.ask; });
+  
 
-    var data_cex_bitfinex = {
-      labels: blockData.CEXUSD.map(function (item) { return item.ts; }).slice(-periods),
-      datasets: [
-        {
-          label: 'CEX USD',
-          //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
-          data: count_cex_usd,
-          backgroundColor: 'rgba(244, 109, 65, 0.1)',
-          borderColor: 'rgba(244, 109, 65, 1)',
-          borderWidth: 1,
-          pointRadius: 0
-
-        },
-        {
-          label: 'Bitfinex USD',
-          //data: myMovingAverage(count_bitfinex_usd_to_zar, 4).slice(-periods),
-          data: count_bitfinex_usd,
-          backgroundColor: 'rgba(66, 203, 244, 0.1)',
-          borderColor: 'rgba(66, 203, 244, 1)',
-          borderWidth: 1,
-          pointRadius: 0,
-          hidden: false,
-
-        }
-    
-      ]
-    };
-    chart_cex_bitfinex.data = data_cex_bitfinex;
-    chart_cex_bitfinex.update();
-
-
-    var count_bitfinex_cex_perc = [];
-    for (i = 0; i < blockData.CEXUSD.length; i++) {
-
-      var perc = (((blockData.CEXUSD[i].ask / blockData.BitFinexUSD[i].ask) * 100) - 100);
-      count_bitfinex_cex_perc.push(perc)
-    }
-
-
-    var data_cex_bitfinex_perc = {
-      labels: blockData.CEXUSD.map(function (item) { return item.ts; }).slice(-periods),
-      datasets: [
-
-        {
-          label: 'Perc',
-          //data: myMovingAverage(count_bitfinex_cex_perc, 4).slice(-periods),
-          data: count_bitfinex_cex_perc,
-          backgroundColor: 'rgba(44, 23, 89, 0.1)',
-          borderColor: 'rgba(44, 23, 89, 1)',
-          borderWidth: 1,
-          pointRadius: 0,
-          hidden: false,
-
-        }
-      ]
-    };
-    chart_cex_bitfinex_perc.data = data_cex_bitfinex_perc;
-    chart_cex_bitfinex_perc.update();
-
+   
   });
 
 

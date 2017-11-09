@@ -4,7 +4,7 @@
     <div class="container">
         <div class="navbar-header">
 
-            <h3>CRYPTO TRADES</h3>
+            <h3>CRYPTO ARB TRADES</h3>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
