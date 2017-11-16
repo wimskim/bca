@@ -14,7 +14,7 @@ namespace CryptoTrader
     {
         XBTZAR = 1,
         ETHZAR = 2,
-        
+        ETHXBT = 3
     }
 
 
@@ -22,63 +22,51 @@ namespace CryptoTrader
     {
         public static BestLunohBidAsk GetLunoResult(decimal minVolume, LunoSymbolEnum symbol)
         {
-            if (symbol == LunoSymbolEnum.XBTZAR)
+           
+            var result = new LunoResult();
+
+            var client = new RestClient("https://api.mybitx.com/api/1/orderbook?pair=" + symbol.ToString());
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            if (response.Content.Length < 10)
             {
-                var result = new LunoResult();
-
-                var client = new RestClient("https://api.mybitx.com/api/1/orderbook?pair=" + symbol.ToString());
-                var request = new RestRequest(Method.GET);
-                IRestResponse response = client.Execute(request);
-                if (response.Content.Length < 10)
-                {
-                    return GetLunoResult(minVolume, symbol);
-                }
-
-                var lunoResponse = JsonConvert.DeserializeObject<LunoResponse>(response.Content);
-
-
-
-                try
-                {
-                    lunoResponse = JsonConvert.DeserializeObject<LunoResponse>(response.Content);
-
-                    BestLunohBidAsk bestprices = new BestLunohBidAsk();
-
-                    int i = 0;
-                    do
-                    {
-                        bestprices.ask.price = lunoResponse.asks[i].price;
-                        bestprices.ask.volume += lunoResponse.asks[i].volume;
-                        i++;
-                    } while (bestprices.ask.volume < minVolume);
-
-                    i = 0;
-                    do
-                    {
-                        bestprices.bid.price = lunoResponse.bids[i].price;
-                        bestprices.bid.volume += lunoResponse.bids[i].volume;
-                        i++;
-                    }
-                    while (bestprices.bid.volume < minVolume);
-
-                    return bestprices;
-                }
-                catch
-                {
-                    return new BestLunohBidAsk();
-                }
+                return GetLunoResult(minVolume, symbol);
             }
-            else
-            {
-                BestLunohBidAsk bestprices = new BestLunohBidAsk();
-                bestprices.ask.price = 4959M;
-                bestprices.ask.volume = 4959M;
 
-                bestprices.bid.price = 4959M;
-                bestprices.ask.volume = 4959M;
+            var lunoResponse = JsonConvert.DeserializeObject<LunoResponse>(response.Content);
+
+
+
+            try
+            {
+                lunoResponse = JsonConvert.DeserializeObject<LunoResponse>(response.Content);
+
+                BestLunohBidAsk bestprices = new BestLunohBidAsk();
+
+                int i = 0;
+                do
+                {
+                    bestprices.ask.price = lunoResponse.asks[i].price;
+                    bestprices.ask.volume += lunoResponse.asks[i].volume;
+                    i++;
+                } while (bestprices.ask.volume < minVolume);
+
+                i = 0;
+                do
+                {
+                    bestprices.bid.price = lunoResponse.bids[i].price;
+                    bestprices.bid.volume += lunoResponse.bids[i].volume;
+                    i++;
+                }
+                while (bestprices.bid.volume < minVolume);
 
                 return bestprices;
             }
+            catch
+            {
+                return new BestLunohBidAsk();
+            }
+         
         }
     }
 
