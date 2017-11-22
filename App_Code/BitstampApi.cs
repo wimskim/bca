@@ -14,19 +14,20 @@ namespace CryptoTrader
         public const int MinVolume = 1;
         public static BestBitstampBidAsk GetBestPrices(BitstampSymbolEnum pair, decimal minVol)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-
-
-            var client = new RestClient("https://www.bitstamp.net/api/v2/order_book/" + pair.ToString().ToUpper());
-
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-            
-            BitstampResponse BitstampResponse;
-            BitstampResponse = JsonConvert.DeserializeObject<BitstampResponse>(response.Content);
-
             try
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+
+                var client = new RestClient("https://www.bitstamp.net/api/v2/order_book/" + pair.ToString().ToUpper());
+
+                var request = new RestRequest(Method.GET);
+                IRestResponse response = client.Execute(request);
+            
+                BitstampResponse BitstampResponse;
+                BitstampResponse = JsonConvert.DeserializeObject<BitstampResponse>(response.Content);
+
+          
 
                 BestBitstampBidAsk bestprices = new BestBitstampBidAsk();
 
@@ -49,7 +50,7 @@ namespace CryptoTrader
 
                 return bestprices;
             }
-            catch
+            catch(Exception ex)
             {
                 return new BestBitstampBidAsk();
             }
