@@ -118,6 +118,8 @@ var drawCharts = function (days) {
   }).then(function (blockData) {
     blockData.BitlishUSD = blockData.BitlishUSD.sort(function (a, b) { return a.id - b.id; });
     blockData.BitlishEUR = blockData.BitlishEUR.sort(function (a, b) { return a.id - b.id; });
+    blockData.BitstampUSD = blockData.BitstampUSD.sort(function (a, b) { return a.id - b.id; });
+    blockData.BitstampEUR = blockData.BitstampEUR.sort(function (a, b) { return a.id - b.id; });
     blockData.CEXUSD = blockData.CEXUSD.sort(function (a, b) { return a.id - b.id; });
     blockData.CEXEUR = blockData.CEXEUR.sort(function (a, b) { return a.id - b.id; });
     blockData.CEXGBP = blockData.CEXGBP.sort(function (a, b) { return a.id - b.id; });
@@ -135,6 +137,9 @@ var drawCharts = function (days) {
 
     var count_BitlishUSD = blockData.BitlishUSD.map(function (item) { return item.p; });
     var count_BitlishEUR = blockData.BitlishEUR.map(function (item) { return item.p; });
+    var count_BitstampUSD = blockData.BitstampUSD.map(function (item) { return item.p; });
+    var count_BitstampEUR = blockData.BitstampEUR.map(function (item) { return item.p; });
+
     var count_CEXUSD = blockData.CEXUSD.map(function (item) { return item.p; });
     var count_CEXEUR = blockData.CEXEUR.map(function (item) { return item.p; });
     var count_CEXGBP = blockData.CEXGBP.map(function (item) { return item.p; });
@@ -150,14 +155,31 @@ var drawCharts = function (days) {
         borderColor: 'rgba(71, 65, 244, 1)',
         borderWidth: 1,
         pointRadius: 0
-
       },
       {
         label: 'Bitlish EUR',
         //data: myMovingAverage(count_BitlishEUR, 4).slice(-periods),
         data: count_BitlishEUR,
-        backgroundColor: 'rgba(32, 158, 28, 0.1)',
-        borderColor: 'rgba(32, 158, 28, 1)',
+        backgroundColor: 'rgba(66, 134, 244, 0.1)',
+        borderColor: 'rgba(66, 134, 244, 1)',
+        borderWidth: 1,
+        pointRadius: 0
+      },
+      {
+        label: 'Bitstamp USD',
+        //data: myMovingAverage(count_BitlishUSD, 4).slice(-periods),
+        data: count_BitstampUSD,
+        backgroundColor: 'rgba(37, 109, 33, 0.1)',
+        borderColor: 'rgba(37, 109, 33, 1)',
+        borderWidth: 1,
+        pointRadius: 0
+      },
+      {
+        label: 'Bitstamp EUR',
+        //data: myMovingAverage(count_BitlishEUR, 4).slice(-periods),
+        data: count_BitstampEUR,
+        backgroundColor: 'rgba(33, 188, 24, 0.1)',
+        borderColor: 'rgba(33, 188, 24, 1)',
         borderWidth: 1,
         pointRadius: 0
       },
@@ -220,6 +242,23 @@ var drawCharts = function (days) {
       price = price + (0.001 * item.ask); // transfer fee
       return price;
     });
+
+
+    var count_bitstamp_usd_to_zar = blockData.BitstampUSD.map(function (item) {
+      var price = (item.ask * (item.rate + 0.4));
+      var fees = 5.25 + 0.2;
+      price = price + (price * (fees / 100));
+      price = price + (0.001 * item.ask); // transfer fee
+      return price;
+    });
+    var count_bitstamp_eur_to_zar = blockData.BitstampEUR.map(function (item) {
+      var price = (item.ask * (item.rate + 0.4));
+      var fees = 5.25 + 0.2;
+      price = price + (price * (fees / 100));
+      price = price + (0.001 * item.ask); // transfer fee
+      return price;
+    });
+
     var count_cex_usd_to_zar = blockData.CEXUSD.map(function (item) {
       var price = (item.ask * (item.rate + 0.4));
       var fees = 3.5 + 0.2;
@@ -275,8 +314,28 @@ var drawCharts = function (days) {
         label: 'Bitlish EUR',
         //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
         data: count_bitlish_eur_to_zar,
-        backgroundColor: 'rgba(32, 158, 28, 0.1)',
-        borderColor: 'rgba(32, 158, 28, 1)',
+        backgroundColor: 'rgba(66, 134, 244, 0.1)',
+        borderColor: 'rgba(66, 134, 244, 1)',
+        borderWidth: 1,
+        pointRadius: 0
+
+      },
+      {
+         label: 'Bitstamp USD',
+         //data: myMovingAverage(count_bitstampUSD_Price, 4).slice(-periods),
+         data: count_bitstamp_usd_to_zar,
+         backgroundColor: 'rgba(37, 109, 33, 0.1)',
+         borderColor: 'rgba(37, 109, 33, 1)',
+         borderWidth: 1,
+         pointRadius: 0
+
+      },
+      {
+        label: 'Bitstamp EUR',
+        //data: myMovingAverage(count_bitstampUSD_Price, 4).slice(-periods),
+        data: count_bitstamp_eur_to_zar,
+        backgroundColor: 'rgba(33, 188, 24, 0.1)',
+        borderColor: 'rgba(33, 188, 24, 1)',
         borderWidth: 1,
         pointRadius: 0
 
@@ -350,8 +409,8 @@ var drawCharts = function (days) {
         hidden: true,
         //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
         data: count_eurzar,
-        backgroundColor: 'rgba(32, 158, 28, 0.1)',
-        borderColor: 'rgba(32, 158, 28, 1)',
+        backgroundColor: 'rgba(66, 134, 244, 0.1)',
+        borderColor: 'rgba(66, 134, 244, 1)',
         borderWidth: 1,
         pointRadius: 0
 

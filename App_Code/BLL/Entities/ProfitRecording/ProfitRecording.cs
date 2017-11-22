@@ -13,7 +13,8 @@ namespace CryptoTrader.BLL
         {
             Bitlish = 0,
             Cex = 1,   
-            Bitfinex = 2
+            Bitfinex = 2,
+            Bitstamp = 3
         }
         public enum enCurrency : int
         {
@@ -275,6 +276,10 @@ namespace CryptoTrader.BLL
 
             var bitfinexUSD = BitfinexApi.GetBestPrices(BitfinexSymbolEnum.BtcUsd, 0.01m);
 
+            var bitstampUSD = BitstampApi.GetBestPrices(BitstampSymbolEnum.BTCUSD, 0.01m);
+            var bitstampEUR = BitstampApi.GetBestPrices(BitstampSymbolEnum.BTCEUR, 0.01m);
+
+
             decimal usdzar = 0m;
             decimal eurzar = 0m;
             decimal rubzar = 0m;
@@ -461,6 +466,63 @@ namespace CryptoTrader.BLL
             catch
             { // duplicate last recording
                 ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitfinex, enCurrency.USD, "BTC");
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.ArbSymblol = "BTC";
+                pf.Save();
+            }
+
+
+            // BitStamp USD;
+            try
+            {
+                profPerc = GetProfit(bitstampUSD.ask.price, luno.bid.price, usdzar, 0.4M, 5.25M, 2000);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Bitstamp;
+                pf.Currency = enCurrency.USD;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = bitstampUSD.ask.price;
+                pf.CurrencyToZARExchangeRate = usdzar;
+                pf.ProfitPerc = profPerc;
+                pf.ArbSymblol = "BTC";
+                pf.Save();
+            }
+            catch
+            { // duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitstamp, enCurrency.USD, "BTC");
+                pf = new ProfitRecording();
+                pf.Exchange = pflast.Exchange;
+                pf.Currency = pflast.Currency;
+                pf.LunoBid = pflast.LunoBid;
+                pf.ExchangeAsk = pflast.ExchangeAsk;
+                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+                pf.ProfitPerc = pflast.ProfitPerc;
+                pf.ArbSymblol = "BTC";
+                pf.Save();
+            }
+
+            // BitStamp EUR;
+            try
+            {
+                profPerc = GetProfit(bitstampEUR.ask.price, luno.bid.price, eurzar, 0.4M, 5.25M, 2000);
+                pf = new ProfitRecording();
+                pf.Exchange = enExchange.Bitstamp;
+                pf.Currency = enCurrency.EUR;
+                pf.LunoBid = luno.bid.price;
+                pf.ExchangeAsk = bitstampEUR.ask.price;
+                pf.CurrencyToZARExchangeRate = eurzar;
+                pf.ProfitPerc = profPerc;
+                pf.ArbSymblol = "BTC";
+                pf.Save();
+            }
+            catch
+            { // duplicate last recording
+                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitstamp, enCurrency.EUR, "BTC");
                 pf = new ProfitRecording();
                 pf.Exchange = pflast.Exchange;
                 pf.Currency = pflast.Currency;

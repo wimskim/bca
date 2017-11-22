@@ -105,6 +105,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\BitstampApi.cs" />
     <Compile Include="App_Code\BitlishApi.cs" />
     <Compile Include="App_Code\BLL\BLLBaseCollection.cs" />
     <Compile Include="App_Code\BLL\BLLBaseObject.cs" />

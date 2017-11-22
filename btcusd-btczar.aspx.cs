@@ -48,6 +48,24 @@ namespace CryptoTrader
 
             lblProfits.InnerHtml += "<br>";
 
+
+
+            pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Bitstamp, BLL.ProfitRecording.enCurrency.USD, "BTC");
+            strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
+            lblProfits.InnerHtml += "Bitstamp USD: $" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
+            usdzar = pf.CurrencyToZARExchangeRate;
+            pfs.Add(pf);
+
+            pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Bitstamp, BLL.ProfitRecording.enCurrency.EUR, "BTC");
+            strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
+            lblProfits.InnerHtml += "Bitstamp EUR: &euro;" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
+            eurzar = pf.CurrencyToZARExchangeRate;
+            pfs.Add(pf);
+
+            lblProfits.InnerHtml += "<br>";
+
+
+
             pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.USD, "BTC");
             strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
             lblProfits.InnerHtml += "CEX USD: $" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
