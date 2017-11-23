@@ -11,7 +11,14 @@ namespace CryptoTrader.Template
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
+
+        public string PageTitle
+        {
+            get { return pageTitle.InnerHtml; }
+            set { pageTitle.InnerHtml = value; }
+        }
+
     }
 }

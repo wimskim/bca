@@ -209,7 +209,7 @@ var drawCharts = function (days) {
         borderColor: 'rgba(241, 244, 65, 1)',
         borderWidth: 1,
         pointRadius: 0,
-        hidden: true,
+        hidden: false,
       },
       {
         label: 'Bitfinex USD',
@@ -219,7 +219,7 @@ var drawCharts = function (days) {
         borderColor: 'rgba(66, 203, 244, 1)',
         borderWidth: 1,
         pointRadius: 0,
-        hidden: false,
+        hidden: true,
       }
       ]
     };
@@ -368,7 +368,7 @@ var drawCharts = function (days) {
         borderColor: 'rgba(241, 244, 65, 1)',
         borderWidth: 1,
         pointRadius: 0,
-        hidden: true,
+        hidden: false,
 
       },
        {
@@ -379,7 +379,7 @@ var drawCharts = function (days) {
          borderColor: 'rgba(66, 203, 244, 1)',
          borderWidth: 1,
          pointRadius: 0,
-         hidden: false,
+         hidden: true,
 
        }
 
