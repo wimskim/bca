@@ -98,7 +98,7 @@ namespace CryptoTrader.BLL
                 if (_profitPerc > -10)
                     return _exchangeAsk;
                 else
-                    return (_lunoBid); // if bitlish gives crazy price the return luno price -10%
+                    return (_lunoBid / _currencyToZARExchangeRate); // if bitlish gives crazy price the return luno price -10%
             }
 
             set
