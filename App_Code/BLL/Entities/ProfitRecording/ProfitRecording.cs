@@ -95,10 +95,10 @@ namespace CryptoTrader.BLL
         {
             get
             {
-                if (_profitPerc > -10)
-                    return _exchangeAsk;
-                else
+                if (_profitPerc < -10 && Exchange == enExchange.Bitlish)
                     return (_lunoBid / _currencyToZARExchangeRate); // if bitlish gives crazy price the return luno price -10%
+                else
+                    return _exchangeAsk;
             }
 
             set
@@ -124,10 +124,10 @@ namespace CryptoTrader.BLL
         {
             get
             {
-                if (_profitPerc > -10)
-                    return _profitPerc;
-                else
+                if (_profitPerc < -10 && Exchange == enExchange.Bitlish)
                     return 0;
+                else
+                    return _profitPerc;
             }
 
             set
