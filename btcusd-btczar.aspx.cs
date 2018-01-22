@@ -102,11 +102,11 @@ namespace CryptoTrader
             pfs.Add(pf);
             bitfinexusd = pf.ExchangeAsk;
 
-            BLL.ProfitRecording latest = pfs.Find(delegate (BLL.ProfitRecording p) { return p.TimeStamp == pfs.Max(t => t.TimeStamp); });
+        //    BLL.ProfitRecording latest = pfs.Find(delegate (BLL.ProfitRecording p) { return p.TimeStamp == pfs.Max(t => t.TimeStamp); });
 
 
            // lblProfits.InnerHtml += "<br>";
-            lblProfits.InnerHtml += "Luno ZAR: R" + latest.LunoBid.ToString("0") + "<br>";
+            lblProfits.InnerHtml += "Luno ZAR: R" + pf.LunoBid.ToString("0") + "<br>";
             lblProfits.InnerHtml += "<br>";
             lblProfits.InnerHtml += "USDZAR: R" + usdzar.ToString("0.00")  + "<br>";
             lblProfits.InnerHtml += "EURZAR: R" + eurzar.ToString("0.00") + "<br>";
