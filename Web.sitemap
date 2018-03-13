@@ -4,6 +4,7 @@
 
       <siteMapNode url="~/btcusd-btczar.aspx" title="BTC Arb" description="" />
       <siteMapNode url="~/ethusd-ethzar.aspx" title="ETH Arb" description="" />
-    
+      <siteMapNode url="~/btcusdt.aspx" title="BTCUSDT" description="" />
+
     </siteMapNode>
 </siteMap>

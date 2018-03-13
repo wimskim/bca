@@ -73,6 +73,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\BLL\Entities\DollarCostAvg\DollarCostAvg.cs" />
+    <Compile Include="App_Code\BLL\Entities\DollarCostAvg\DollarCostAvgCollection.cs" />
+    <Compile Include="App_Code\DAL\DollarCostAvg.cs" />
     <Content Include="assets\css\bootstrap-theme.css" />
     <Content Include="assets\css\bootstrap-theme.min.css" />
     <Content Include="assets\css\bootstrap.css" />
@@ -85,9 +88,11 @@
     <Content Include="assets\js\charts\Chart.min.js" />
     <Content Include="assets\js\charts\median.js" />
     <Content Include="assets\js\charts\scriptbtc.js" />
+    <Content Include="assets\js\charts\script_btcusdavg.js" />
     <Content Include="assets\js\charts\scripteth.js" />
     <Content Include="assets\js\html5shiv.js" />
     <Content Include="assets\js\respond.min.js" />
+    <Content Include="btcusdt.aspx" />
     <Content Include="ethusd-ethzar.aspx" />
     <Content Include="btcusd-btczar.aspx" />
     <Content Include="ethbtc.aspx" />
@@ -119,6 +124,13 @@
     <Compile Include="App_Code\DAL\DALBase.cs" />
     <Content Include="App_Code\JsonValue.cs" />
     <Compile Include="App_Code\LunoApi.cs" />
+    <Compile Include="btcusdt.aspx.cs">
+      <DependentUpon>btcusdt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="btcusdt.aspx.designer.cs">
+      <DependentUpon>btcusdt.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ethusd-ethzar.aspx.cs">
       <DependentUpon>ethusd-ethzar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -185,7 +197,9 @@
     <None Include="assets\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Template\Site.Master" />
-    <Content Include="Web.sitemap" />
+    <Content Include="Web.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
