@@ -230,14 +230,14 @@ var drawCharts = function (days) {
     var count_luno_zar = blockData.BitlishUSD.map(function (item) { return item.bid; });
     var count_bitlish_usd_to_zar = blockData.BitlishUSD.map(function (item) {
       var price = (item.ask * (item.rate + 0.4));
-      var fees = 3.5 + 0.2;
+      var fees = 3.0 + 0.2;
       price = price + (price * (fees / 100));
       price = price + (0.001 * item.ask); // transfer fee
       return price;
     });
     var count_bitlish_eur_to_zar = blockData.BitlishEUR.map(function (item) {
       var price = (item.ask * (item.rate + 0.4));
-      var fees = 3.5 + 0.2;
+      var fees = 3.0 + 0.2;
       price = price + (price * (fees / 100));
       price = price + (0.001 * item.ask); // transfer fee
       return price;
