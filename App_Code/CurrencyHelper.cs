@@ -52,23 +52,24 @@ namespace CryptoTrader
 
             try
             {
-                exchangeRate = GetYahooCurrencyConversion(fromCurrencyCode, toCurrency);
+                exchangeRate = GetRateExchangeCurrencyConversion(fromCurrencyCode, toCurrency);  
                 if (exchangeRate.rate <= 0)
-                    throw new Exception("GetYahooCurrencyConversion returned exchange rate as 0"); // fall back to Yahoo Currency api
+                    throw new Exception("GetRateExchangeCurrencyConversion returned exchange rate as 0");
+              
             }
             catch (Exception ex)
             {
                 try
                 {
-                    // fallback to WebServiceX service
-                    exchangeRate = GetWebserviceXCurrencyConversion(fromCurrencyCode, toCurrency);
+                    // fall back to Yahoo Currency api
+                    exchangeRate = GetYahooCurrencyConversion(fromCurrencyCode, toCurrency);
                     if (exchangeRate.rate <= 0)
-                        throw new Exception("GetWebserviceXCurrencyConversion returned exchange rate as 0");
+                        throw new Exception("GetYahooCurrencyConversion returned exchange rate as 0"); 
                 }
                 catch (Exception ex2)
                 {
                     // fall back to RateExchange service
-                    exchangeRate = GetRateExchangeCurrencyConversion(fromCurrencyCode, toCurrency);
+                    exchangeRate = GetWebserviceXCurrencyConversion(fromCurrencyCode, toCurrency);
                     if (exchangeRate.rate <= 0)
                     {
                         throw new Exception("Critical error - all currency exchange services failed!");
@@ -170,7 +171,7 @@ namespace CryptoTrader
 
         private static ExchangeRate GetRateExchangeCurrencyConversion(string fromCurrency, string toCurrency)
         {
-            var apiUrl = string.Format("http://free.currencyconverterapi.com/api/v4/convert?q={0}_{1}", fromCurrency.ToUpper(), toCurrency.ToUpper());
+            var apiUrl = string.Format("http://free.currencyconverterapi.com/api/v4/convert?q={0}_{1}&compact=ultra&apiKey=468f01b41e1bd00b7fca", fromCurrency.ToUpper(), toCurrency.ToUpper());
             var webRequest = (HttpWebRequest)WebRequest.Create(apiUrl);
 
             // else call the exchange rate api
@@ -189,12 +190,12 @@ namespace CryptoTrader
                 
                 dynamic jObj = JsonConvert.DeserializeObject(result);
                 
-                foreach (var child in jObj.results.Children())
-                {
+                //foreach (var child in jObj.First.Value)
+                //{
                     // Console.WriteLine("Item ID: {0}", child.First.id);
                     //Console.WriteLine("Item VAL: {0}", child.First.val);
-                    exchangeRate.rate = child.First.val;
-                }
+                    exchangeRate.rate = jObj[fromCurrency.ToUpper() + "_" + toCurrency.ToUpper()];
+                //}
 
                 return exchangeRate;
             }

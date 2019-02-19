@@ -255,7 +255,7 @@ namespace CryptoTrader.BLL
             { }
 
             // sleep thread 
-            Thread.Sleep(GetIntervalInMilliseconds(1));
+            Thread.Sleep(GetIntervalInMilliseconds(3));
 
             RunRecordingService();
 
@@ -296,7 +296,7 @@ namespace CryptoTrader.BLL
             {
                 usdzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Usd, false);
                 eurzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Eur, false);
-                rubzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Rub, false);
+               // rubzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Rub, false);
                 gbpzar = CurrencyHelper.ConvertToZAR(1, CurrencyHelper.CurrencyEnum.Gbp, false);
             }
             catch
