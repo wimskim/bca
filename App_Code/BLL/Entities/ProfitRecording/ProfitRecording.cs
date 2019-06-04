@@ -251,13 +251,12 @@ namespace CryptoTrader.BLL
                 GenerateETHProfitRecordings();
             }
             catch (Exception ex)
-
             { }
 
             // sleep thread 
-          //  Thread.Sleep(GetIntervalInMilliseconds(1));
+            Thread.Sleep(GetIntervalInMilliseconds(1));
 
-         //   RunRecordingService();
+            RunRecordingService();
 
         }
         private static int GetIntervalInMilliseconds(int minutes)

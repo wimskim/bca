@@ -19,9 +19,6 @@ namespace CryptoTrader
         private void BindPage()
         {
 
-            CryptoTrader.BLL.ProfitRecording.RunRecordingService();
-
-
             lblProfits.InnerHtml += "<br>";
 
             string strcolor = "green";
