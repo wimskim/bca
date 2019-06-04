@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.Runtime.Caching;
 
 namespace CryptoTrader
 {
@@ -38,57 +39,54 @@ namespace CryptoTrader
         /// <param name="fromCurrencyCode"></param>
         /// <param name="roundUp"></param>
         /// <returns></returns>
-        public static decimal ConvertToZAR(decimal amount, CurrencyEnum fromCurrency, bool roundUp = true)
+        public static decimal ConvertToZAR(decimal amount, CurrencyEnum fromCurrency)
         {
             string fromCurrencyCode = Enum.GetName(typeof(CurrencyEnum), fromCurrency);
 
-            decimal cachedExchangeRate = 0;
-
-            string cacheKey = "EXCHANGERATE_" + fromCurrencyCode;
-
-            ExchangeRate exchangeRate = null;
-        
             const string toCurrency = "ZAR";
 
-            try
+            
+            ObjectCache cache = MemoryCache.Default;
+            string strCacheName = string.Format("EXCHANGERATE_{0}", fromCurrencyCode);
+
+            if (cache[strCacheName] == null)
             {
-                exchangeRate = GetRateExchangeCurrencyConversion(fromCurrencyCode, toCurrency);  
-                if (exchangeRate.rate <= 0)
-                    throw new Exception("GetRateExchangeCurrencyConversion returned exchange rate as 0");
-              
-            }
-            catch (Exception ex)
-            {
+                ExchangeRate exchangeRate;
                 try
                 {
-                    // fall back to Yahoo Currency api
-                    exchangeRate = GetYahooCurrencyConversion(fromCurrencyCode, toCurrency);
+                    exchangeRate = GetRateExchangeCurrencyConversion(fromCurrencyCode, toCurrency);
                     if (exchangeRate.rate <= 0)
-                        throw new Exception("GetYahooCurrencyConversion returned exchange rate as 0"); 
+                        throw new Exception("GetRateExchangeCurrencyConversion returned exchange rate as 0");
+
                 }
-                catch (Exception ex2)
+                catch (Exception)
                 {
-                    // fall back to RateExchange service
-                    exchangeRate = GetWebserviceXCurrencyConversion(fromCurrencyCode, toCurrency);
-                    if (exchangeRate.rate <= 0)
+                    try
                     {
-                        throw new Exception("Critical error - all currency exchange services failed!");
+                        // fall back to Yahoo Currency api
+                        exchangeRate = GetYahooCurrencyConversion(fromCurrencyCode, toCurrency);
+                        if (exchangeRate.rate <= 0)
+                            throw new Exception("GetYahooCurrencyConversion returned exchange rate as 0");
+                    }
+                    catch (Exception)
+                    {
+                        // fall back to RateExchange service
+                        exchangeRate = GetWebserviceXCurrencyConversion(fromCurrencyCode, toCurrency);
+                        if (exchangeRate.rate <= 0)
+                        {
+                            throw new Exception("Critical error - all currency exchange services failed!");
+                        }
                     }
                 }
+
+                var zarAmound = amount * exchangeRate.rate;
+
+                if (cache != null)
+                    cache.Set(strCacheName, zarAmound, DateTime.Now.AddMinutes(5));
             }
 
-            if (cachedExchangeRate == 0)
-                cachedExchangeRate = exchangeRate.rate;
-
-            if (cachedExchangeRate == 0)
-                throw new Exception(string.Format("{0} to ZAR exchange rate not found", fromCurrencyCode));
-
-            var zarAmound = amount * cachedExchangeRate;
-
-            if (roundUp)
-                zarAmound = Math.Ceiling(zarAmound);
-
-            return zarAmound;
+            return (decimal)cache[strCacheName];
+            
         }
 
         private static ExchangeRate GetYahooCurrencyConversion(string fromCurrency, string toCurrency)

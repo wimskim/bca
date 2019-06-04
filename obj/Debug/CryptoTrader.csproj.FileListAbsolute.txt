@@ -8,3 +8,13 @@ C:\DATA\Apps\CryptoTrades\bin\Newtonsoft.Json.xml
 C:\DATA\Apps\CryptoTrades\bin\RestSharp.xml
 C:\DATA\Apps\CryptoTrades\obj\Debug\CryptoTrader.dll
 C:\DATA\Apps\CryptoTrades\obj\Debug\CryptoTrader.pdb
+C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.csproj.CoreCompileInputs.cache
+C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.dll
+C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.pdb
+C:\Data\Apps\BCA\bca\bin\CryptoTrader.dll
+C:\Data\Apps\BCA\bca\bin\CryptoTrader.pdb
+C:\Data\Apps\BCA\bca\bin\Newtonsoft.Json.dll
+C:\Data\Apps\BCA\bca\bin\RestSharp.dll
+C:\Data\Apps\BCA\bca\bin\Newtonsoft.Json.xml
+C:\Data\Apps\BCA\bca\bin\RestSharp.xml
+C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.csproj.CopyComplete
