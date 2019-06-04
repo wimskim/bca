@@ -255,7 +255,7 @@ namespace CryptoTrader.BLL
             { }
 
             // sleep thread 
-            Thread.Sleep(GetIntervalInMilliseconds(3));
+            Thread.Sleep(GetIntervalInMilliseconds(1));
 
             RunRecordingService();
 
