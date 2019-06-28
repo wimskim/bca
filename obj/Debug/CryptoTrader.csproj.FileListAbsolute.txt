@@ -20,3 +20,4 @@ C:\Data\Apps\BCA\bca\bin\RestSharp.xml
 C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.csproj.CopyComplete
 C:\Data\Apps\BCA\bca\bin\CryptoTrader.dll.config
 C:\Data\Apps\BCA\bca\bin\System.Runtime.Caching.dll
+C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.csprojAssemblyReference.cache

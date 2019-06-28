@@ -13,3 +13,7 @@ web.config
 web.debug.config
 web.release.config
 
+
+\.vs/bca/v16/Server/sqlite3/storage\.ide-shm
+
+\.vs/bca/v16/Server/sqlite3/storage\.ide-wal
