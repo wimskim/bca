@@ -374,7 +374,7 @@ namespace CryptoTrader.BLL
             // CEX USD;
             try
             {
-                profPerc = GetProfit(cexUSD.ask.price, luno.bid.price, usdzar, 0.4M, 3.5M, 3000);
+                profPerc = GetProfit(cexUSD.ask.price, luno.bid.price, usdzar, 0.4M, 2.99M, 3000);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Cex;
                 pf.Currency = enCurrency.USD;
@@ -402,7 +402,7 @@ namespace CryptoTrader.BLL
             // CEX EUR;
             try
             {
-                profPerc = GetProfit(cexEUR.ask.price, luno.bid.price, eurzar, 0.4M, 3.5M, 3000);
+                profPerc = GetProfit(cexEUR.ask.price, luno.bid.price, eurzar, 0.4M, 2.99M, 3000);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Cex;
                 pf.Currency = enCurrency.EUR;
@@ -430,7 +430,7 @@ namespace CryptoTrader.BLL
             // CEX GBP;
             try
             {
-                profPerc = GetProfit(cexGBP.ask.price, luno.bid.price, gbpzar, 0.4M, 3.5M, 2000);
+                profPerc = GetProfit(cexGBP.ask.price, luno.bid.price, gbpzar, 0.4M, 2.99M, 2000);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Cex;
                 pf.Currency = enCurrency.GBP;
