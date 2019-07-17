@@ -14,7 +14,7 @@ namespace CryptoTrader
     {
         XBTZAR = 1,
         ETHZAR = 2,
-        ETHXBT = 3
+        ETHXBT = 3,
     }
 
 

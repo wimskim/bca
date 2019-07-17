@@ -546,10 +546,9 @@ namespace CryptoTrader.BLL
         {
             ProfitRecording pf = new ProfitRecording();
 
-            var lunoXBTZAR = LunoApi.GetLunoResult(0.50000M, LunoSymbolEnum.XBTZAR);
-            var lunoETHXBT = LunoApi.GetLunoResult(10.00001M, LunoSymbolEnum.ETHXBT);
+            var luno = LunoApi.GetLunoResult(10.00001M, LunoSymbolEnum.ETHZAR);
             
-            decimal bestprice = lunoXBTZAR.bid.price * lunoETHXBT.bid.price;
+          //  decimal bestprice = ((luno.ask.price + luno.bid.price) / 2);
 
             var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.EthUsd, 0.01m);
             var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.EthEur, 0.01m);
@@ -589,12 +588,12 @@ namespace CryptoTrader.BLL
             decimal profPerc = 0;
             try
             {
-                profPerc = GetProfit(bitlishUSD.ask.price, bestprice, usdzar, 0.4M, 3.49M, 2000);
+                profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4.84M, 2000);
 
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Bitlish;
                 pf.Currency = enCurrency.USD;
-                pf.LunoBid = bestprice;
+                pf.LunoBid = luno.bid.price;
                 pf.ExchangeAsk = bitlishUSD.ask.price;
                 pf.CurrencyToZARExchangeRate = usdzar;
                 pf.ProfitPerc = profPerc;
@@ -619,11 +618,11 @@ namespace CryptoTrader.BLL
             // Bitlish EUR;
             try
             {
-                profPerc = GetProfit(bitlishEUR.ask.price, bestprice, eurzar, 0.4M, 3.49M, 1500);
+                profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4.35M, 1500);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Bitlish;
                 pf.Currency = enCurrency.EUR;
-                pf.LunoBid = bestprice;
+                pf.LunoBid = luno.bid.price;
                 pf.ExchangeAsk = bitlishEUR.ask.price;
                 pf.CurrencyToZARExchangeRate = eurzar;
                 pf.ProfitPerc = profPerc;
@@ -648,11 +647,11 @@ namespace CryptoTrader.BLL
             // CEX USD;
             try
             {
-                profPerc = GetProfit(cexUSD.ask.price,bestprice, usdzar, 0.4M, 3.5M, 3000);
+                profPerc = GetProfit(cexUSD.ask.price, luno.bid.price, usdzar, 0.4M, 2.99M, 3000);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Cex;
                 pf.Currency = enCurrency.USD;
-                pf.LunoBid = bestprice;
+                pf.LunoBid = luno.bid.price;
                 pf.ExchangeAsk = cexUSD.ask.price;
                 pf.CurrencyToZARExchangeRate = usdzar;
                 pf.ProfitPerc = profPerc;
@@ -676,11 +675,11 @@ namespace CryptoTrader.BLL
             // CEX EUR;
             try
             {
-                profPerc = GetProfit(cexEUR.ask.price, bestprice, eurzar, 0.4M, 3.5M, 3000);
+                profPerc = GetProfit(cexEUR.ask.price, luno.bid.price, eurzar, 0.4M, 2.99M, 3000);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Cex;
                 pf.Currency = enCurrency.EUR;
-                pf.LunoBid = bestprice;
+                pf.LunoBid = luno.bid.price;
                 pf.ExchangeAsk = cexEUR.ask.price;
                 pf.CurrencyToZARExchangeRate = eurzar;
                 pf.ProfitPerc = profPerc;
@@ -704,11 +703,11 @@ namespace CryptoTrader.BLL
             // CEX GBP;
             try
             {
-                profPerc = GetProfit(cexGBP.ask.price, bestprice, gbpzar, 0.4M, 3.5M, 2000);
+                profPerc = GetProfit(cexGBP.ask.price, luno.bid.price, gbpzar, 0.4M, 2.99M, 2000);
                 pf = new ProfitRecording();
                 pf.Exchange = enExchange.Cex;
                 pf.Currency = enCurrency.GBP;
-                pf.LunoBid = bestprice;
+                pf.LunoBid = luno.bid.price;
                 pf.ExchangeAsk = cexGBP.ask.price;
                 pf.CurrencyToZARExchangeRate = gbpzar;
                 pf.ProfitPerc = profPerc;
