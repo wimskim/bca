@@ -378,7 +378,7 @@ var drawCharts = function (days) {
          //data: myMovingAverage(count_bitfinex_usd_to_zar, 4).slice(-periods),
          data: count_bitfinex_usd_to_zar,
          backgroundColor: 'rgba(66, 203, 244, 0.1)',
-         borderColor: 'rgba(66, 203, 244, 1)',e
+         borderColor: 'rgba(66, 203, 244, 1)',
          borderWidth: 1,
          pointRadius: 0,
          hidden: true,
