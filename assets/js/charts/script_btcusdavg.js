@@ -21,7 +21,7 @@ var chart_btcusd = new Chart(ctx_count_btcusd, {
     scales: {
       yAxes: [{
         ticks: {
-          callback: function (value, index, values) { return value.toPrecision(0) + ' USD'; }
+          callback: function (value, index, values) { return value.toPrecision(2) + ' USD'; }
         }
       }]
     },

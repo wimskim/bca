@@ -35,21 +35,22 @@ namespace CryptoTrader
             System.Collections.Generic.List<BLL.ProfitRecording> pfs = new List<BLL.ProfitRecording>();
 
 
-            BLL.ProfitRecording pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.USD,"BTC");
-            strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
-            lblProfits.InnerHtml += "Bitlish USD: $" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" +strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
-            usdzar = pf.CurrencyToZARExchangeRate;
-            pfs.Add(pf);
-            if (pf.ProfitPerc > biggestProfit) biggestProfit = pf.ProfitPerc;
+            BLL.ProfitRecording pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Cex, BLL.ProfitRecording.enCurrency.USD,"BTC");
+            
+            //strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
+            //lblProfits.InnerHtml += "Bitlish USD: $" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" +strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
+            //usdzar = pf.CurrencyToZARExchangeRate;
+            //pfs.Add(pf);
+            //if (pf.ProfitPerc > biggestProfit) biggestProfit = pf.ProfitPerc;
 
-            pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.EUR, "BTC");
-            strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
-            lblProfits.InnerHtml += "Bitlish EUR: &euro;" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
-            eurzar = pf.CurrencyToZARExchangeRate;
-            pfs.Add(pf);
-            if (pf.ProfitPerc > biggestProfit) biggestProfit = pf.ProfitPerc;
+            //pf = BLL.ProfitRecording.GetLatestByExchangeAndCurrnecy(BLL.ProfitRecording.enExchange.Bitlish, BLL.ProfitRecording.enCurrency.EUR, "BTC");
+            //strcolor = (pf.ProfitPerc < 0 ? "red" : "green");
+            //lblProfits.InnerHtml += "Bitlish EUR: &euro;" + pf.ExchangeAsk.ToString("0") + ":  <font color=\"" + strcolor + "\">" + pf.ProfitPerc.ToString("0.00") + "%</font> @ " + pf.TimeStamp.ToString("d MMM yyyy, HH:mm:ss") + " <br>";
+            //eurzar = pf.CurrencyToZARExchangeRate;
+            //pfs.Add(pf);
+            //if (pf.ProfitPerc > biggestProfit) biggestProfit = pf.ProfitPerc;
 
-            lblProfits.InnerHtml += "<br>";
+            //lblProfits.InnerHtml += "<br>";
 
 
 

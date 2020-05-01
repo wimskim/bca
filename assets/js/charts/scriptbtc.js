@@ -116,8 +116,8 @@ var drawCharts = function (days) {
   fetch('json.aspx?getjson=getprofits&arbsymbol=BTC&days=' + days).then(function (response) {
     return response.json();
   }).then(function (blockData) {
-    blockData.BitlishUSD = blockData.BitlishUSD.sort(function (a, b) { return a.id - b.id; });
-    blockData.BitlishEUR = blockData.BitlishEUR.sort(function (a, b) { return a.id - b.id; });
+    //blockData.BitlishUSD = blockData.BitlishUSD.sort(function (a, b) { return a.id - b.id; });
+    //blockData.BitlishEUR = blockData.BitlishEUR.sort(function (a, b) { return a.id - b.id; });
     blockData.BitstampUSD = blockData.BitstampUSD.sort(function (a, b) { return a.id - b.id; });
     blockData.BitstampEUR = blockData.BitstampEUR.sort(function (a, b) { return a.id - b.id; });
     blockData.CEXUSD = blockData.CEXUSD.sort(function (a, b) { return a.id - b.id; });
@@ -127,7 +127,7 @@ var drawCharts = function (days) {
 
 
 
-    var periods = blockData.BitlishUSD.length;
+    var periods = blockData.CEXUSD.length;
 
     //if (periods > blockData.BitlishUSD.length) {
     //    periods = 0;
@@ -135,8 +135,8 @@ var drawCharts = function (days) {
 
 
 
-    var count_BitlishUSD = blockData.BitlishUSD.map(function (item) { return item.p; });
-    var count_BitlishEUR = blockData.BitlishEUR.map(function (item) { return item.p; });
+    //var count_BitlishUSD = blockData.BitlishUSD.map(function (item) { return item.p; });
+    //var count_BitlishEUR = blockData.BitlishEUR.map(function (item) { return item.p; });
     var count_BitstampUSD = blockData.BitstampUSD.map(function (item) { return item.p; });
     var count_BitstampEUR = blockData.BitstampEUR.map(function (item) { return item.p; });
 
@@ -146,25 +146,26 @@ var drawCharts = function (days) {
     var count_BitFinexUSD = blockData.BitFinexUSD.map(function (item) { return item.p; });
 
     var data_count_percent = {
-      labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),
-      datasets: [{
-        label: 'Bitlish USD',
-        //data: myMovingAverage(count_BitlishUSD, 4).slice(-periods),
-        data: count_BitlishUSD,
-        backgroundColor: 'rgba(71, 65, 244, 0.1)',
-        borderColor: 'rgba(71, 65, 244, 1)',
-        borderWidth: 1,
-        pointRadius: 0
-      },
-      {
-        label: 'Bitlish EUR',
-        //data: myMovingAverage(count_BitlishEUR, 4).slice(-periods),
-        data: count_BitlishEUR,
-        backgroundColor: 'rgba(66, 134, 244, 0.1)',
-        borderColor: 'rgba(66, 134, 244, 1)',
-        borderWidth: 1,
-        pointRadius: 0
-      },
+      labels: blockData.CEXUSD.map(function (item) { return item.ts; }).slice(-periods),
+      datasets: [
+      //  {
+      //  label: 'Bitlish USD',
+      //  //data: myMovingAverage(count_BitlishUSD, 4).slice(-periods),
+      //  data: count_BitlishUSD,
+      //  backgroundColor: 'rgba(71, 65, 244, 0.1)',
+      //  borderColor: 'rgba(71, 65, 244, 1)',
+      //  borderWidth: 1,
+      //  pointRadius: 0
+      //},
+      //{
+      //  label: 'Bitlish EUR',
+      //  //data: myMovingAverage(count_BitlishEUR, 4).slice(-periods),
+      //  data: count_BitlishEUR,
+      //  backgroundColor: 'rgba(66, 134, 244, 0.1)',
+      //  borderColor: 'rgba(66, 134, 244, 1)',
+      //  borderWidth: 1,
+      //  pointRadius: 0
+      //},
       {
         label: 'Bitstamp USD',
         //data: myMovingAverage(count_BitlishUSD, 4).slice(-periods),
@@ -227,21 +228,22 @@ var drawCharts = function (days) {
     chart_prof_percent.data = data_count_percent;
     chart_prof_percent.update();
 
-    var count_luno_zar = blockData.BitlishUSD.map(function (item) { return item.bid; });
-    var count_bitlish_usd_to_zar = blockData.BitlishUSD.map(function (item) {
-      var price = (item.ask * (item.rate + 0.4));
-      var fees = 3.0 + 0.2;
-      price = price + (price * (fees / 100));
-      price = price + (0.001 * item.ask); // transfer fee
-      return price;
-    });
-    var count_bitlish_eur_to_zar = blockData.BitlishEUR.map(function (item) {
-      var price = (item.ask * (item.rate + 0.4));
-      var fees = 3.0 + 0.2;
-      price = price + (price * (fees / 100));
-      price = price + (0.001 * item.ask); // transfer fee
-      return price;
-    });
+    var count_luno_zar = blockData.CEXUSD.map(function (item) { return item.bid; });
+
+    //var count_bitlish_usd_to_zar = blockData.BitlishUSD.map(function (item) {
+    //  var price = (item.ask * (item.rate + 0.4));
+    //  var fees = 3.0 + 0.2;
+    //  price = price + (price * (fees / 100));
+    //  price = price + (0.001 * item.ask); // transfer fee
+    //  return price;
+    //});
+    //var count_bitlish_eur_to_zar = blockData.BitlishEUR.map(function (item) {
+    //  var price = (item.ask * (item.rate + 0.4));
+    //  var fees = 3.0 + 0.2;
+    //  price = price + (price * (fees / 100));
+    //  price = price + (0.001 * item.ask); // transfer fee
+    //  return price;
+    //});
 
 
     var count_bitstamp_usd_to_zar = blockData.BitstampUSD.map(function (item) {
@@ -289,7 +291,7 @@ var drawCharts = function (days) {
     });
 
     var data_luno_zar = {
-      labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),
+      labels: blockData.CEXUSD.map(function (item) { return item.ts; }).slice(-periods),
       datasets: [{
         label: 'Luno ZAR',
         //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
@@ -300,26 +302,26 @@ var drawCharts = function (days) {
         pointRadius: 0
 
       },
-      {
-        label: 'Bitlish USD',
-        //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
-        data: count_bitlish_usd_to_zar,
-        backgroundColor: 'rgba(71, 65, 244, 0.1)',
-        borderColor: 'rgba(71, 65, 244, 1)',
-        borderWidth: 1,
-        pointRadius: 0
+      //{
+      //  label: 'Bitlish USD',
+      //  //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+      //  data: count_bitlish_usd_to_zar,
+      //  backgroundColor: 'rgba(71, 65, 244, 0.1)',
+      //  borderColor: 'rgba(71, 65, 244, 1)',
+      //  borderWidth: 1,
+      //  pointRadius: 0
 
-      },
-      {
-        label: 'Bitlish EUR',
-        //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
-        data: count_bitlish_eur_to_zar,
-        backgroundColor: 'rgba(66, 134, 244, 0.1)',
-        borderColor: 'rgba(66, 134, 244, 1)',
-        borderWidth: 1,
-        pointRadius: 0
+      //},
+      //{
+      //  label: 'Bitlish EUR',
+      //  //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),
+      //  data: count_bitlish_eur_to_zar,
+      //  backgroundColor: 'rgba(66, 134, 244, 0.1)',
+      //  borderColor: 'rgba(66, 134, 244, 1)',
+      //  borderWidth: 1,
+      //  pointRadius: 0
 
-      },
+      //},
       {
          label: 'Bitstamp USD',
          //data: myMovingAverage(count_bitstampUSD_Price, 4).slice(-periods),
@@ -376,7 +378,7 @@ var drawCharts = function (days) {
          //data: myMovingAverage(count_bitfinex_usd_to_zar, 4).slice(-periods),
          data: count_bitfinex_usd_to_zar,
          backgroundColor: 'rgba(66, 203, 244, 0.1)',
-         borderColor: 'rgba(66, 203, 244, 1)',
+         borderColor: 'rgba(66, 203, 244, 1)',e
          borderWidth: 1,
          pointRadius: 0,
          hidden: true,
@@ -389,11 +391,11 @@ var drawCharts = function (days) {
     chart_all_to_zar.data = data_luno_zar;
     chart_all_to_zar.update();
 
-    var count_usdzar = blockData.BitlishUSD.map(function (item) { return item.rate; });
-    var count_eurzar = blockData.BitlishEUR.map(function (item) { return item.rate; });
+    var count_usdzar = blockData.CEXUSD.map(function (item) { return item.rate; });
+    var count_eurzar = blockData.CEXEUR.map(function (item) { return item.rate; });
     var count_gbpzar = blockData.CEXGBP.map(function (item) { return item.rate; });
     var data_exchangerates = {
-      labels: blockData.BitlishUSD.map(function (item) { return item.ts; }).slice(-periods),
+      labels: blockData.CEXUSD.map(function (item) { return item.ts; }).slice(-periods),
       datasets: [{
         label: 'USD',
         //data: myMovingAverage(count_BitlishUSD_Price, 4).slice(-periods),

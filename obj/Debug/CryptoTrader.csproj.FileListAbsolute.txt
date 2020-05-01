@@ -21,3 +21,14 @@ C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.csproj.CopyComplete
 C:\Data\Apps\BCA\bca\bin\CryptoTrader.dll.config
 C:\Data\Apps\BCA\bca\bin\System.Runtime.Caching.dll
 C:\Data\Apps\BCA\bca\obj\Debug\CryptoTrader.csprojAssemblyReference.cache
+C:\Data\Apps\BCA\obj\Debug\CryptoTrader.csprojAssemblyReference.cache
+C:\Data\Apps\BCA\obj\Debug\CryptoTrader.dll
+C:\Data\Apps\BCA\obj\Debug\CryptoTrader.pdb
+C:\Data\Apps\BCA\bin\CryptoTrader.dll
+C:\Data\Apps\BCA\bin\CryptoTrader.pdb
+C:\Data\Apps\BCA\bin\Newtonsoft.Json.dll
+C:\Data\Apps\BCA\bin\RestSharp.dll
+C:\Data\Apps\BCA\bin\System.Runtime.Caching.dll
+C:\Data\Apps\BCA\bin\Newtonsoft.Json.xml
+C:\Data\Apps\BCA\bin\RestSharp.xml
+C:\Data\Apps\BCA\obj\Debug\CryptoTrader.csproj.CopyComplete

@@ -30,7 +30,7 @@ namespace CryptoTrader.BLL
 
         #region Fields
         private long _id = Constants.NullLong;
-        private enExchange _exchange = enExchange.Bitlish;
+        private enExchange _exchange = enExchange.Cex;
         private enCurrency _currency = enCurrency.USD;
         private decimal _lunoBid = Constants.NullDecimal;
         private decimal _exchangeAsk = Constants.NullDecimal;
@@ -95,8 +95,8 @@ namespace CryptoTrader.BLL
         {
             get
             {
-                if (_profitPerc < -10 && Exchange == enExchange.Bitlish)
-                    return (_lunoBid / _currencyToZARExchangeRate); // if bitlish gives crazy price the return luno price -10%
+                if (_profitPerc < -10 && Exchange == enExchange.Cex)
+                    return (_lunoBid / _currencyToZARExchangeRate); // if Cex gives crazy price the return luno price -10%
                 else
                     return _exchangeAsk;
             }
@@ -124,7 +124,7 @@ namespace CryptoTrader.BLL
         {
             get
             {
-                if (_profitPerc < -10 && Exchange == enExchange.Bitlish)
+                if (_profitPerc < -10 && Exchange == enExchange.Cex)
                     return 0;
                 else
                     return _profitPerc;
@@ -272,8 +272,8 @@ namespace CryptoTrader.BLL
             var luno = LunoApi.GetLunoResult(0.00001M,LunoSymbolEnum.XBTZAR);
             decimal bestprice = ((luno.ask.price + luno.bid.price) / 2);
 
-            var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcUsd, 0.01m);
-            var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcEur, 0.01m);
+            //var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcUsd, 0.01m);
+            //var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.BtcEur, 0.01m);
   
             var cexUSD = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Usd, 0.01m);
             var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Btc_Eur, 0.01m);       
@@ -310,65 +310,66 @@ namespace CryptoTrader.BLL
                 gbpzar = recGBP.CurrencyToZARExchangeRate;
             }
 
-
-            // Bitlish USD;
             decimal profPerc = 0;
-            try
-            {
-                profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4.84M, 4000);
 
-                pf = new ProfitRecording();
-                pf.Exchange = enExchange.Bitlish;
-                pf.Currency = enCurrency.USD;
-                pf.LunoBid = luno.bid.price;
-                pf.ExchangeAsk = bitlishUSD.ask.price;
-                pf.CurrencyToZARExchangeRate = usdzar;
-                pf.ProfitPerc = profPerc;
-                pf.ArbSymblol = "BTC";
-                pf.Save();
-            }
-            catch
-            {// duplicate last recording
+            //// Bitlish USD;
 
-                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.USD, "BTC");
-                pf = new ProfitRecording();
-                pf.Exchange = pflast.Exchange;
-                pf.Currency = pflast.Currency;
-                pf.LunoBid = pflast.LunoBid;
-                pf.ExchangeAsk = pflast.ExchangeAsk;
-                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
-                pf.ProfitPerc = pflast.ProfitPerc;
-                pf.ArbSymblol = "BTC";
-                pf.Save();
-            }
+            //try
+            //{
+            //    profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4.84M, 4000);
 
-            // Bitlish EUR;
-            try
-            {
-                profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4.35M, 4000);
-                pf = new ProfitRecording();
-                pf.Exchange = enExchange.Bitlish;
-                pf.Currency = enCurrency.EUR;
-                pf.LunoBid = luno.bid.price;
-                pf.ExchangeAsk = bitlishEUR.ask.price;
-                pf.CurrencyToZARExchangeRate = eurzar;
-                pf.ProfitPerc = profPerc;
-                pf.ArbSymblol = "BTC";
-                pf.Save();
-            }
-            catch
-            {// duplicate last recording
-                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.EUR, "BTC");
-                pf = new ProfitRecording();
-                pf.Exchange = pflast.Exchange;
-                pf.Currency = pflast.Currency;
-                pf.LunoBid = pflast.LunoBid;
-                pf.ExchangeAsk = pflast.ExchangeAsk;
-                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
-                pf.ProfitPerc = pflast.ProfitPerc;
-                pf.ArbSymblol = "BTC";
-                pf.Save();
-            }
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = enExchange.Bitlish;
+            //    pf.Currency = enCurrency.USD;
+            //    pf.LunoBid = luno.bid.price;
+            //    pf.ExchangeAsk = bitlishUSD.ask.price;
+            //    pf.CurrencyToZARExchangeRate = usdzar;
+            //    pf.ProfitPerc = profPerc;
+            //    pf.ArbSymblol = "BTC";
+            //    pf.Save();
+            //}
+            //catch
+            //{// duplicate last recording
+
+            //    ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.USD, "BTC");
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = pflast.Exchange;
+            //    pf.Currency = pflast.Currency;
+            //    pf.LunoBid = pflast.LunoBid;
+            //    pf.ExchangeAsk = pflast.ExchangeAsk;
+            //    pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+            //    pf.ProfitPerc = pflast.ProfitPerc;
+            //    pf.ArbSymblol = "BTC";
+            //    pf.Save();
+            //}
+
+            //// Bitlish EUR;
+            //try
+            //{
+            //    profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4.35M, 4000);
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = enExchange.Bitlish;
+            //    pf.Currency = enCurrency.EUR;
+            //    pf.LunoBid = luno.bid.price;
+            //    pf.ExchangeAsk = bitlishEUR.ask.price;
+            //    pf.CurrencyToZARExchangeRate = eurzar;
+            //    pf.ProfitPerc = profPerc;
+            //    pf.ArbSymblol = "BTC";
+            //    pf.Save();
+            //}
+            //catch
+            //{// duplicate last recording
+            //    ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.EUR, "BTC");
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = pflast.Exchange;
+            //    pf.Currency = pflast.Currency;
+            //    pf.LunoBid = pflast.LunoBid;
+            //    pf.ExchangeAsk = pflast.ExchangeAsk;
+            //    pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+            //    pf.ProfitPerc = pflast.ProfitPerc;
+            //    pf.ArbSymblol = "BTC";
+            //    pf.Save();
+            //}
 
 
             // CEX USD;
@@ -550,8 +551,8 @@ namespace CryptoTrader.BLL
             
           //  decimal bestprice = ((luno.ask.price + luno.bid.price) / 2);
 
-            var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.EthUsd, 0.01m);
-            var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.EthEur, 0.01m);
+            //var bitlishUSD = BitlishApi.GetBestPrices(BitlsihSymbolEnum.EthUsd, 0.01m);
+            //var bitlishEUR = BitlishApi.GetBestPrices(BitlsihSymbolEnum.EthEur, 0.01m);
 
             var cexUSD = CexApi.GetBestPrices(CEXSymbolEnum.Eth_Usd, 0.01m);
             var cexEUR = CexApi.GetBestPrices(CEXSymbolEnum.Eth_Eur, 0.01m);
@@ -583,65 +584,65 @@ namespace CryptoTrader.BLL
                 gbpzar = recGBP.CurrencyToZARExchangeRate;
             }
 
-
-            // Bitlish USD;
             decimal profPerc = 0;
-            try
-            {
-                profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4.84M, 2000);
+            
+            // Bitlish USD;
+            //try
+            //{
+            //    profPerc = GetProfit(bitlishUSD.ask.price, luno.bid.price, usdzar, 0.4M, 4.84M, 2000);
 
-                pf = new ProfitRecording();
-                pf.Exchange = enExchange.Bitlish;
-                pf.Currency = enCurrency.USD;
-                pf.LunoBid = luno.bid.price;
-                pf.ExchangeAsk = bitlishUSD.ask.price;
-                pf.CurrencyToZARExchangeRate = usdzar;
-                pf.ProfitPerc = profPerc;
-                pf.ArbSymblol = "ETH";
-                pf.Save();
-            }
-            catch
-            {// duplicate last recording
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = enExchange.Bitlish;
+            //    pf.Currency = enCurrency.USD;
+            //    pf.LunoBid = luno.bid.price;
+            //    pf.ExchangeAsk = bitlishUSD.ask.price;
+            //    pf.CurrencyToZARExchangeRate = usdzar;
+            //    pf.ProfitPerc = profPerc;
+            //    pf.ArbSymblol = "ETH";
+            //    pf.Save();
+            //}
+            //catch
+            //{// duplicate last recording
 
-                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.USD, "ETH");
-                pf = new ProfitRecording();
-                pf.Exchange = pflast.Exchange;
-                pf.Currency = pflast.Currency;
-                pf.LunoBid = pflast.LunoBid;
-                pf.ExchangeAsk = pflast.ExchangeAsk;
-                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
-                pf.ProfitPerc = pflast.ProfitPerc;
-                pf.ArbSymblol = "ETH";
-                pf.Save();
-            }
+            //    ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.USD, "ETH");
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = pflast.Exchange;
+            //    pf.Currency = pflast.Currency;
+            //    pf.LunoBid = pflast.LunoBid;
+            //    pf.ExchangeAsk = pflast.ExchangeAsk;
+            //    pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+            //    pf.ProfitPerc = pflast.ProfitPerc;
+            //    pf.ArbSymblol = "ETH";
+            //    pf.Save();
+            //}
 
-            // Bitlish EUR;
-            try
-            {
-                profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4.35M, 1500);
-                pf = new ProfitRecording();
-                pf.Exchange = enExchange.Bitlish;
-                pf.Currency = enCurrency.EUR;
-                pf.LunoBid = luno.bid.price;
-                pf.ExchangeAsk = bitlishEUR.ask.price;
-                pf.CurrencyToZARExchangeRate = eurzar;
-                pf.ProfitPerc = profPerc;
-                pf.ArbSymblol = "ETH";
-                pf.Save();
-            }
-            catch
-            {// duplicate last recording
-                ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.EUR, "ETH");
-                pf = new ProfitRecording();
-                pf.Exchange = pflast.Exchange;
-                pf.Currency = pflast.Currency;
-                pf.LunoBid = pflast.LunoBid;
-                pf.ExchangeAsk = pflast.ExchangeAsk;
-                pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
-                pf.ProfitPerc = pflast.ProfitPerc;
-                pf.ArbSymblol = "ETH";
-                pf.Save();
-            }
+            //// Bitlish EUR;
+            //try
+            //{
+            //    profPerc = GetProfit(bitlishEUR.ask.price, luno.bid.price, eurzar, 0.4M, 4.35M, 1500);
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = enExchange.Bitlish;
+            //    pf.Currency = enCurrency.EUR;
+            //    pf.LunoBid = luno.bid.price;
+            //    pf.ExchangeAsk = bitlishEUR.ask.price;
+            //    pf.CurrencyToZARExchangeRate = eurzar;
+            //    pf.ProfitPerc = profPerc;
+            //    pf.ArbSymblol = "ETH";
+            //    pf.Save();
+            //}
+            //catch
+            //{// duplicate last recording
+            //    ProfitRecording pflast = ProfitRecording.GetLatestByExchangeAndCurrnecy(enExchange.Bitlish, enCurrency.EUR, "ETH");
+            //    pf = new ProfitRecording();
+            //    pf.Exchange = pflast.Exchange;
+            //    pf.Currency = pflast.Currency;
+            //    pf.LunoBid = pflast.LunoBid;
+            //    pf.ExchangeAsk = pflast.ExchangeAsk;
+            //    pf.CurrencyToZARExchangeRate = pflast.CurrencyToZARExchangeRate;
+            //    pf.ProfitPerc = pflast.ProfitPerc;
+            //    pf.ArbSymblol = "ETH";
+            //    pf.Save();
+            //}
 
 
             // CEX USD;
